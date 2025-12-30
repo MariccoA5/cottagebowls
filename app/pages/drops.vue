@@ -89,7 +89,7 @@ let map = null
 onMounted(() => {
   map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/bright-v9', // Clean bright style
+    style: 'mapbox://styles/mapbox/outdoors-v12', // Clean bright style
     center: [-113.5684, 37.0965],
     zoom: 10
   })
