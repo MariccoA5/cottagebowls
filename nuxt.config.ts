@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/css/main.css',
-    'leaflet/dist/leaflet.css'
+    'mapbox-gl/dist/mapbox-gl.css'
   ],
 
   routeRules: {
