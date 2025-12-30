@@ -14,9 +14,9 @@
 
       <!-- Food Teaser -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 my-20">
-        <img src="/images/bowl1.jpg" class="rounded-2xl shadow-xl" />
-        <img src="/images/bowl2.jpg" class="rounded-2xl shadow-xl" />
-        <img src="/images/bowl3.jpg" class="rounded-2xl shadow-xl" />
+        <img src="/images/strawberry1.jpeg" class="rounded-2xl shadow-xl" />
+        <img src="/images/banana1.jpeg" class="rounded-2xl shadow-xl" />
+        <img src="/images/mix1.jpeg" class="rounded-2xl shadow-xl" />
       </div>
     </UContainer>
   </div>
