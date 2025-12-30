@@ -32,13 +32,14 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useNuxtApp } from '#app'
 
-const mapContainer = ref(null)
 const map = ref(null)
 
 onMounted(() => {
-  nextTick(() => {
+  const { $nextTick } = useNuxtApp()
+  $nextTick(() => {
     if (map.value?.mapObject) {
       map.value.mapObject.invalidateSize()
     }
