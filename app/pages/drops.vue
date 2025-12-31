@@ -98,7 +98,7 @@ onMounted(() => {
   map.addControl(new mapboxgl.NavigationControl(), 'top-right')
 
   // Create markers
-  drops.forEach(drop => {
+  drops.forEach((drop) => {
     const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
       `<strong class="text-amber-700">${drop.location}</strong><br>${drop.schedule}<br>${drop.address}`
     )
