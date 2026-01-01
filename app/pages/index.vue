@@ -17,21 +17,12 @@
         </p>
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
           <UButton
-            to="/drops"
+            to="/locations"
             size="xl"
             color="primary"
             class="px-12 py-6 text-lg font-medium"
           >
             View Pickup Locations
-          </UButton>
-          <UButton
-            to="/order"
-            size="xl"
-            variant="outline"
-            color="primary"
-            class="px-12 py-6 text-lg font-medium"
-          >
-            Order Now
           </UButton>
         </div>
       </UContainer>
@@ -82,7 +73,7 @@
     </section>
 
     <!-- Bowl Preview — Fixed -->
-    <section class="py-20 bg-gradient-to-r from-amber-50 to-sky-50">
+    <section class="py-20 bg-linear-to-r from-amber-50 to-sky-50">
       <UContainer>
         <h2 class="text-4xl font-bold text-amber-800 text-center mb-12">
           Build Your Perfect Bowl
@@ -106,7 +97,7 @@
         </div>
         <div class="text-center mt-12">
           <UButton
-            to="/order"
+            to="/location"
             size="xl"
             color="primary"
             class="px-12 py-6 text-lg"

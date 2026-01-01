@@ -11,47 +11,39 @@
         <img
           src="/images/logosmall.png"
           alt="Cottage Bowls"
-          class="h-28 w-auto"
+          class="h-24 w-auto"
         >
-        <span class="text-2xl font-bold text-amber-700 hidden md:block">
+        <span class="text-2xl font-bold text-amber-700 hover:text-amber-900 hidden md:block">
           Cottage Bowls
         </span>
       </NuxtLink>
     </template>
 
-    <!-- Default slot (center): desktop navigation, auto-hidden on mobile -->
-    <nav class="hidden lg:flex items-center justify-center flex-grow gap-8 text-base">
-      <NuxtLink
-        to="/"
-        class="text-gray-700 hover:text-amber-700 font-medium"
-      >
-        Home
-      </NuxtLink>
-      <NuxtLink
-        to="/drops"
-        class="text-gray-700 hover:text-amber-700 font-medium"
-      >
-        Drop-Offs
-      </NuxtLink>
-      <NuxtLink
-        to="/about"
-        class="text-gray-700 hover:text-amber-700 font-medium"
-      >
-        About
-      </NuxtLink>
-      <NuxtLink
-        to="/investor"
-        class="text-gray-700 hover:text-amber-700 font-medium"
-      >
-        Support
-      </NuxtLink>
-    </nav>
-
     <template #right>
+      <nav class="hidden lg:flex items-center justify-center px-4 gap-4 text-base">
+        <NuxtLink
+          to="/"
+          class="hidden text-gray-700 hover:text-amber-700 font-medium"
+        >
+          Home
+        </NuxtLink>
+        <NuxtLink
+          to="/about"
+          class="text-gray-700 hover:text-amber-700 font-medium"
+        >
+          About
+        </NuxtLink>
+        <NuxtLink
+          to="/support"
+          class="text-gray-700 hover:text-amber-700 font-medium"
+        >
+          Support
+        </NuxtLink>
+      </nav>
       <UButton
-        to="/order"
+        to="/locations"
         color="primary"
-        size="lg"
+        size="xl"
         label="Order Now"
         class="font-medium"
       />
@@ -67,7 +59,7 @@
           Home
         </NuxtLink>
         <NuxtLink
-          to="/drops"
+          to="/locations"
           class="text-gray-700 hover:text-amber-700 font-medium"
         >
           Drop-Offs
@@ -79,7 +71,7 @@
           About
         </NuxtLink>
         <NuxtLink
-          to="/investor"
+          to="/support"
           class="text-gray-700 hover:text-amber-700 font-medium"
         >
           Support

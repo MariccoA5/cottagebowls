@@ -17,5 +17,5 @@
   --color-green-950: #052E16;
 }
 :root {
-  --ui-header-height: 10rem; /* 96px — plenty for h-20 logo + padding */
+  --ui-header-height: 7rem; 
 }

@@ -1,10 +1,10 @@
 <template>
   <UContainer class="py-12">
     <h1 class="text-4xl font-bold text-amber-800 text-center mb-8">
-      St. George Drop-Offs ☀️
+      St. George Locations & Times ☀️
     </h1>
     <p class="text-xl text-center mb-12">
-      Meet me at these spots • Fresh bowls ready • $15 each (pay on pickup)
+      Meet me at these spots • Fresh bowls ready • Grab and go (pay online)
     </p>
 
     <!-- Professional Dynamic Map -->
@@ -37,7 +37,7 @@
           block
           @click.stop="preorder(drop)"
         >
-          Preorder & Meet Here ($15)
+          Reserve A Bowl & Meet Here
         </UButton>
       </UCard>
     </div>
@@ -45,17 +45,17 @@
     <!-- Global Preorder Section -->
     <div class="mt-20 py-12 bg-amber-50 rounded-3xl text-center">
       <h2 class="text-3xl font-bold text-amber-800 mb-6">
-        Outside St. George? Preorder & Invest ☀️
+        Want to support? Join the Journey ☀️
       </h2>
       <p class="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
-        First come, first served when we expand/ship • Your preorder fuels growth (no refunds — you're in on the dream!)
+        Love the idea of helping fuel America with healthy snacks, meals, and drinks? You can support us now and become partners in our journey.
       </p>
       <UButton
         size="xl"
         color="primary"
         @click="globalPreorder"
       >
-        Preorder Bowls ($20+ shipped)
+        Support & Join the Community
       </UButton>
     </div>
   </UContainer>
@@ -65,7 +65,7 @@
 import { onMounted } from 'vue'
 import mapboxgl from 'mapbox-gl'
 
-// REPLACE THIS WITH YOUR MAPBOX PUBLIC TOKEN
+// MAPBOX PUBLIC TOKEN
 mapboxgl.accessToken = 'pk.eyJ1IjoiY290dGFnZWJvd2xzIiwiYSI6ImNtanJ2dzdwZTJ6N3Qza3B5eGZ1NDJjajQifQ.bRMqdcX4WnWqKxj5Urf44A'
 
 const drops = [

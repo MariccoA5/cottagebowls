@@ -17,7 +17,7 @@ useSeoMeta({
   description: 'Custom cottage cheese bowls with fresh toppings. Daily pickup in St. George, UT. Healthy, delicious, made with sunshine ☀️',
   ogTitle: 'Cottage Bowls',
   ogDescription: 'Fresh, high-protein cottage cheese bowls — pickup daily in St. George',
-  ogImage: '/images/logo.png',
+  ogImage: '/images/logosmall.png',
   twitterCard: 'summary_large_image'
 })
 </script>
