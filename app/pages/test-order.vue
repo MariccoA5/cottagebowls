@@ -1,18 +1,39 @@
 <template>
   <UContainer class="py-12 max-w-2xl mx-auto">
-    <h1 class="text-4xl font-bold text-amber-800 text-center mb-8">Test Order Form</h1>
+    <h1 class="text-4xl font-bold text-amber-800 text-center mb-8">
+      Test Order Form
+    </h1>
     <UForm @submit="submit">
-      <UFormField label="Name" required>
-        <UInput v-model="form.name" placeholder="Maricco A." />
+      <UFormField
+        label="Name"
+        required
+      >
+        <UInput
+          v-model="form.name"
+          placeholder="Maricco A."
+        />
       </UFormField>
-      <UFormField label="Email" required>
-        <UInput v-model="form.email" type="email" placeholder="admin@cottagebowls.com" />
+      <UFormField
+        label="Email"
+        required
+      >
+        <UInput
+          v-model="form.email"
+          type="email"
+          placeholder="admin@cottagebowls.com"
+        />
       </UFormField>
       <UFormField label="Phone">
-        <UInput v-model="form.phone" placeholder="(143)420-6969" />
+        <UInput
+          v-model="form.phone"
+          placeholder="(143)420-6969"
+        />
       </UFormField>
       <UFormField label="Location">
-        <UInput v-model="form.location" placeholder="e.g. Cafe FeelLove Friday" />
+        <UInput
+          v-model="form.location"
+          placeholder="e.g. Cafe FeelLove Friday"
+        />
       </UFormField>
       <UFormField label="Toppings (+$2 each)">
         <UCheckbox
@@ -25,13 +46,28 @@
         />
       </UFormField>
       <UFormField label="Quantity">
-        <UInput v-model.number="form.quantity" type="number" :min="1" />
+        <UInput
+          v-model.number="form.quantity"
+          type="number"
+          :min="1"
+        />
       </UFormField>
-      <UButton type="submit" size="xl" color="primary" block :loading="loading">
+      <UButton
+        type="submit"
+        size="xl"
+        color="primary"
+        block
+        :loading="loading"
+      >
         Submit Test Order
       </UButton>
     </UForm>
-    <p v-if="message" class="mt-8 text-center text-xl">{{ message }}</p>
+    <p
+      v-if="message"
+      class="mt-8 text-center text-xl"
+    >
+      {{ message }}
+    </p>
   </UContainer>
 </template>
 

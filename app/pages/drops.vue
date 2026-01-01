@@ -1,10 +1,17 @@
 <template>
   <UContainer class="py-12">
-    <h1 class="text-4xl font-bold text-amber-800 text-center mb-8">St. George Drop-Offs ☀️</h1>
-    <p class="text-xl text-center mb-12">Meet me at these spots • Fresh bowls ready • $15 each (pay on pickup)</p>
+    <h1 class="text-4xl font-bold text-amber-800 text-center mb-8">
+      St. George Drop-Offs ☀️
+    </h1>
+    <p class="text-xl text-center mb-12">
+      Meet me at these spots • Fresh bowls ready • $15 each (pay on pickup)
+    </p>
 
     <!-- Professional Dynamic Map -->
-    <div id="map" class="h-96 w-full rounded-2xl overflow-hidden shadow-2xl mb-16"></div>
+    <div
+      id="map"
+      class="h-96 w-full rounded-2xl overflow-hidden shadow-2xl mb-16"
+    />
 
     <!-- List/Grid with Click-to-Focus -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -15,11 +22,21 @@
         @click="focusDrop(drop)"
       >
         <template #header>
-          <h3 class="text-2xl font-bold text-amber-700">{{ drop.location }}</h3>
-          <p class="text-lg">{{ drop.schedule }}</p>
+          <h3 class="text-2xl font-bold text-amber-700">
+            {{ drop.location }}
+          </h3>
+          <p class="text-lg">
+            {{ drop.schedule }}
+          </p>
         </template>
-        <p class="mb-4">{{ drop.address }}</p>
-        <UButton color="primary" block @click.stop="preorder(drop)">
+        <p class="mb-4">
+          {{ drop.address }}
+        </p>
+        <UButton
+          color="primary"
+          block
+          @click.stop="preorder(drop)"
+        >
           Preorder & Meet Here ($15)
         </UButton>
       </UCard>
@@ -27,11 +44,19 @@
 
     <!-- Global Preorder Section -->
     <div class="mt-20 py-12 bg-amber-50 rounded-3xl text-center">
-      <h2 class="text-3xl font-bold text-amber-800 mb-6">Outside St. George? Preorder & Invest ☀️</h2>
+      <h2 class="text-3xl font-bold text-amber-800 mb-6">
+        Outside St. George? Preorder & Invest ☀️
+      </h2>
       <p class="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
         First come, first served when we expand/ship • Your preorder fuels growth (no refunds — you're in on the dream!)
       </p>
-      <UButton size="xl" color="primary" @click="globalPreorder">Preorder Bowls ($20+ shipped)</UButton>
+      <UButton
+        size="xl"
+        color="primary"
+        @click="globalPreorder"
+      >
+        Preorder Bowls ($20+ shipped)
+      </UButton>
     </div>
   </UContainer>
 </template>

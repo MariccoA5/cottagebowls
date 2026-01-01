@@ -7,7 +7,12 @@
       We're growing fast! Preorder for nationwide shipping and join early supporters who get priority access + future perks.
       Your support fuels the dream — no refunds, all in on fresh goodness.
     </p>
-    <UButton to="/order" size="xl" color="primary" class="mt-8">
+    <UButton
+      to="/order"
+      size="xl"
+      color="primary"
+      class="mt-8"
+    >
       Preorder & Invest
     </UButton>
   </UContainer>

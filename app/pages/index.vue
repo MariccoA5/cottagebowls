@@ -8,7 +8,7 @@
           src="/images/logo.png"
           alt="Cottage Bowls"
           class="mx-auto w-80 md:w-96 mb-10 drop-shadow-2xl"
-        />
+        >
         <h1 class="text-5xl md:text-7xl font-bold text-amber-800 mb-6">
           Fresh Cottage Bowls ☀️🥣
         </h1>
@@ -88,12 +88,29 @@
           Build Your Perfect Bowl
         </h2>
         <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <img src="/images/banana1.jpeg" alt="Banana Bowl" class="rounded-3xl shadow-2xl object-cover h-80" />
-          <img src="/images/mix2.jpeg" alt="Mixed Bowl" class="rounded-3xl shadow-2xl object-cover h-80" />
-          <img src="/images/strawberry3.jpeg" alt="Strawberry Bowl" class="rounded-3xl shadow-2xl object-cover h-80" />
+          <img
+            src="/images/banana1.jpeg"
+            alt="Banana Bowl"
+            class="rounded-3xl shadow-2xl object-cover h-80"
+          >
+          <img
+            src="/images/mix2.jpeg"
+            alt="Mixed Bowl"
+            class="rounded-3xl shadow-2xl object-cover h-80"
+          >
+          <img
+            src="/images/strawberry3.jpeg"
+            alt="Strawberry Bowl"
+            class="rounded-3xl shadow-2xl object-cover h-80"
+          >
         </div>
         <div class="text-center mt-12">
-          <UButton to="/order" size="xl" color="primary" class="px-12 py-6 text-lg">
+          <UButton
+            to="/order"
+            size="xl"
+            color="primary"
+            class="px-12 py-6 text-lg"
+          >
             Start Your Order
           </UButton>
         </div>

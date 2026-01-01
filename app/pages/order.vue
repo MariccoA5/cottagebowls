@@ -6,7 +6,12 @@
     <p class="text-lg text-gray-700">
       Order form coming soon — check drop-off locations for now!
     </p>
-    <UButton to="/drops" size="xl" color="primary" class="mt-8">
+    <UButton
+      to="/drops"
+      size="xl"
+      color="primary"
+      class="mt-8"
+    >
       View Drop-Offs
     </UButton>
   </UContainer>

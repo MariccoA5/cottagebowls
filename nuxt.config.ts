@@ -15,6 +15,12 @@ export default defineNuxtConfig({
     'mapbox-gl/dist/mapbox-gl.css'
   ],
 
+  colorMode: {
+    preference: 'light', // Always light
+    fallback: 'light', // Fallback light
+    classSuffix: '' // Removes 'dark:' classes
+  },
+
   routeRules: {
     '/': { prerender: true }
   },
@@ -23,6 +29,7 @@ export default defineNuxtConfig({
 
   eslint: {
     config: {
+
       stylistic: {
         commaDangle: 'never',
         braceStyle: '1tbs'
