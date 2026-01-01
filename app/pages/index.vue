@@ -1,18 +1,28 @@
 <!-- app/pages/index.vue -->
 <template>
   <div>
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-sky-100 via-white to-amber-50 overflow-hidden">
+    <!-- Hero Section with Background Image -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <!-- Background Image (replace with your Grok image path) -->
+      <div
+        class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        :style="{ backgroundImage: 'url(/images/hero-bowl2.png)' }"
+      />
+
+      <!-- Dark overlay for text readability -->
+      <div class="absolute inset-0 bg-black/40" />
+
+      <!-- Content -->
       <UContainer class="relative z-10 text-center py-20">
-        <img
-          src="/images/logo.png"
+        <!-- <img
+          src="/images/logosmall.png"
           alt="Cottage Bowls"
           class="mx-auto w-80 md:w-96 mb-10 drop-shadow-2xl"
-        >
-        <h1 class="text-5xl md:text-7xl font-bold text-amber-800 mb-6">
+        /> -->
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
           Fresh Cottage Bowls ☀️🥣
         </h1>
-        <p class="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto mb-12">
+        <p class="text-xl md:text-2xl text-white max-w-3xl mx-auto mb-12 drop-shadow-md">
           High-protein, customizable bowls made fresh daily in St. George, Utah
         </p>
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
@@ -20,7 +30,7 @@
             to="/locations"
             size="xl"
             color="primary"
-            class="px-12 py-6 text-lg font-medium"
+            class="px-12 py-6 text-lg font-medium shadow-lg"
           >
             View Pickup Locations
           </UButton>
