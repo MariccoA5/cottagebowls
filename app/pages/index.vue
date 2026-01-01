@@ -6,7 +6,7 @@
       <!-- Background Image (replace with your Grok image path) -->
       <div
         class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        :style="{ backgroundImage: 'url(/images/hero-bowl2.png)' }"
+        :style="{ backgroundImage: 'url(/images/hero-bowl3.png)' }"
       />
 
       <!-- Dark overlay for text readability -->
@@ -88,15 +88,10 @@
         <h2 class="text-4xl font-bold text-amber-800 text-center mb-12">
           Build Your Perfect Bowl
         </h2>
-        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="flex items-center justify-center gap-12 max-w-5xl mx-auto">
           <img
             src="/images/banana1.jpeg"
             alt="Banana Bowl"
-            class="rounded-3xl shadow-2xl object-cover h-80"
-          >
-          <img
-            src="/images/mix2.jpeg"
-            alt="Mixed Bowl"
             class="rounded-3xl shadow-2xl object-cover h-80"
           >
           <img
