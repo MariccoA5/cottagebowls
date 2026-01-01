@@ -71,39 +71,32 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY290dGFnZWJvd2xzIiwiYSI6ImNtanJ2dzdwZTJ6N3Qza
 const drops = [
   {
     id: 1,
-    location: 'Sand Hollow Entrance',
-    address: '3351 Sand Hollow Rd',
-    schedule: 'Fill Out Application',
-    lngLat: [-113.38984, 37.11816] // 37.11816, -113.38984 Sand Hollow
+    location: 'Thunder Junction Park',
+    address: '1851 S Dixie Dr, St. George, UT 84770',
+    schedule: 'Thursday 4-6pm',
+    lngLat: [-113.60031, 37.077827] // Times: Thursday 4-6pm
   },
   {
     id: 2,
-    location: 'Pioneer Park',
-    address: '1560 Grapevine Crossing Rd Suite 2',
-    schedule: 'Fill Out Application',
-    lngLat: [-113.4844, 37.14483] // 37.14483, -113.4844 Approximate from red hills area
+    location: 'Sand Hollow State Park',
+    address: '3351 Sand Hollow Rd, Hurricane, UT 84737',
+    schedule: 'Friday, 11am-1pm | Sunday, 11am-1pm',
+    lngLat: [-113.390004, 37.117812] // Times: Friday, 11am-1pm | Sunday, 11am-1pm
   },
   {
     id: 3,
-    location: 'Intersection',
-    address: '1851 S Dixie Dr',
-    schedule: 'Fill Out Application',
-    lngLat: [-113.37285, 37.16678] // 37.16678, -113.37285 Intersection
-  },
-  {
-    id: 4,
-    location: 'Ace Parking Lot',
-    address: '607 S Mall Dr',
-    schedule: 'Fill Out Application',
-    lngLat: [-113.53281, 37.09848] // 37.09848, -113.53281 Ace
-  },
-  {
-    id: 5,
-    location: 'Utah Tech SET',
-    address: '798 E 100 S',
-    schedule: 'Fill Out Application',
-    lngLat: [-113.56682, 37.10441] // 37.10441, -113.56682 Utah Tech SET
+    location: 'Vernon Worthen Park',
+    address: '300 S 400 E, St. George, UT 84770',
+    schedule: 'Saturday, 10am-12pm',
+    lngLat: [-113.5758844, 37.1040429] // Times: Saturday Market, 10am-12pm
   }
+  // {
+  //   id: 4,
+  //   location: 'Utah Tech Holland Building',
+  //   address: 'Jeffrey R. Holland Centennial Commons, 225 S University Ave, 225 S 700 E, St. George, UT 84770',
+  //   schedule: 'Fill Out Application',
+  //   lngLat: [-113.568397, 37.104329] // Times:
+  // }
 ]
 
 // Add marker reference to each drop

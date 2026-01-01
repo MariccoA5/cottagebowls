@@ -11,7 +11,7 @@
         <img
           src="/images/logosmall.png"
           alt="Cottage Bowls"
-          class="h-32 w-auto"
+          class="h-28 w-auto"
         >
         <span class="text-2xl font-bold text-amber-700 hidden md:block">
           Cottage Bowls
