@@ -47,7 +47,7 @@
       <h2 class="text-3xl font-bold text-amber-800 mb-6">
         Want to support? Join the Journey ☀️
       </h2>
-      <p class="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
+      <p class="text-xl text-gray-700 px-4 max-w-3xl mx-auto mb-8">
         Love the idea of helping fuel America with healthy snacks, meals, and drinks? You can support us now and become partners in our journey.
       </p>
       <UButton

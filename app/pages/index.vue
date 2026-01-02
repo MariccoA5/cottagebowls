@@ -20,7 +20,7 @@
           class="mx-auto w-80 md:w-96 mb-10 drop-shadow-2xl"
         /> -->
         <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
-          Fresh Cottage Bowls ☀️🥣
+          Naturally Sweetend, Cottage Cheese Bowls ☀️🥣
         </h1>
         <p class="text-xl md:text-2xl text-white max-w-3xl mx-auto mb-12 drop-shadow-md">
           High-protein, customizable bowls made fresh daily in St. George, Utah
@@ -88,7 +88,7 @@
         <h2 class="text-4xl font-bold text-amber-800 text-center mb-12">
           Build Your Perfect Bowl
         </h2>
-        <div class="flex items-center justify-center gap-12 max-w-5xl mx-auto">
+        <div class="flex items-center justify-center gap-10 px-8 max-w-5xl mx-auto">
           <img
             src="/images/banana1.jpeg"
             alt="Banana Bowl"
@@ -102,7 +102,7 @@
         </div>
         <div class="text-center mt-12">
           <UButton
-            to="/location"
+            to="/locations"
             size="xl"
             color="primary"
             class="px-12 py-6 text-lg"
