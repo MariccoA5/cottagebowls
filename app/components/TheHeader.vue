@@ -41,7 +41,7 @@
         </NuxtLink>
       </nav>
       <UButton
-        to="/locations"
+        to="/order"
         color="primary"
         size="xl"
         label="Order Now"

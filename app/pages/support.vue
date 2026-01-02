@@ -56,10 +56,10 @@
           </div>
           <div class="flex items-start gap-3">
             <span class="font-semibold w-20">Location</span>
-            <p class="text-gray-700">
-              St. George, Utah<br>
-              Local pickup at designated drop spots (see the Locations page).
-            </p>
+            <div class="text-gray-700 flex-1">
+              <p>St. George, Utah</p>
+              <p>Local pickup at designated drop spots (see the Locations page).</p>
+            </div>
           </div>
         </div>
       </div>

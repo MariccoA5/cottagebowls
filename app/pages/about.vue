@@ -45,59 +45,59 @@
       </UCard>
     </section>
 
-    <!-- Family & Service Story -->
+    <!-- Family & Service Story + Healthy Living -->
     <section class="grid gap-10 lg:grid-cols-2 items-start">
-      <div class="space-y-4">
-        <h2 class="text-2xl font-semibold text-amber-800">
-          A Family Story Rooted in Service
-        </h2>
-        <p class="text-gray-700">
-          Our journey started long before the first Cottage Bowl was served. Our
-          family has deep roots in service through the U.S. Army—years of early
-          mornings, discipline, and a commitment to something bigger than
-          ourselves.
-        </p>
-        <p class="text-gray-700">
-          That experience shaped how we show up in business and in our community:
-          be dependable, take care of your people, and always leave things better
-          than you found them. Cottage Bowls is one more way we continue that
-          mission—by serving food that helps people feel and live better.
-        </p>
-        <p class="text-gray-700">
-          When you support Cottage Bowls, you are supporting a military family,
-          local roots in St. George, and a small business built on gratitude and
-          grit.
-        </p>
+      <div class="space-y-6">
+        <div class="space-y-4">
+          <h2 class="text-2xl font-semibold text-amber-800">
+            A Family Story Rooted in Service
+          </h2>
+          <p class="text-gray-700">
+            Our journey started long before the first Cottage Bowl was served. Our
+            family has deep roots in service through the U.S. Army—years of early
+            mornings, discipline, and a commitment to something bigger than
+            ourselves.
+          </p>
+          <p class="text-gray-700">
+            That experience shaped how we show up in business and in our community:
+            be dependable, take care of your people, and always leave things better
+            than you found them. Cottage Bowls is one more way we continue that
+            mission—by serving food that helps people feel and live better.
+          </p>
+          <p class="text-gray-700">
+            When you support Cottage Bowls, you are supporting a military family,
+            local roots in St. George, and a small business built on gratitude and
+            grit.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h2 class="text-2xl font-semibold text-amber-800">
+            Our Love for Healthy Living
+          </h2>
+          <p class="text-gray-700">
+            We don&apos;t believe in perfection—we believe in better. Better choices,
+            better fuel, and better habits that fit real life. For us, that looks like
+            building bowls around protein, fresh fruits, crunchy toppings, and
+            balance.
+          </p>
+          <p class="text-gray-700">
+            Cottage Bowls is our way of making healthy eating the easy choice on busy
+            days. Whether you&apos;re grabbing a bowl before work, after the gym, or on
+            the way to the park with your kids, we want you to feel proud of what
+            you&apos;re eating and excited to come back.
+          </p>
+        </div>
       </div>
 
-      <!-- Family image -->
       <div class="flex justify-center">
         <img
           src="/images/family.jpeg"
           alt="The Cottage Bowls family"
-          class="w-full max-w-xl max-h-[36rem] rounded-2xl shadow-md border border-amber-100 object-cover"
+          class="w-full max-w-xl max-h-175 rounded-2xl shadow-md border border-amber-100 object-cover"
           style="object-position: center 75%;"
         >
       </div>
-    </section>
-
-    <!-- Healthy living section -->
-    <section class="max-w-4xl space-y-4">
-      <h2 class="text-2xl font-semibold text-amber-800">
-        Our Love for Healthy Living
-      </h2>
-      <p class="text-gray-700">
-        We don&apos;t believe in perfection—we believe in better. Better choices,
-        better fuel, and better habits that fit real life. For us, that looks like
-        building bowls around protein, fresh fruits, crunchy toppings, and
-        balance.
-      </p>
-      <p class="text-gray-700">
-        Cottage Bowls is our way of making healthy eating the easy choice on busy
-        days. Whether you&apos;re grabbing a bowl before work, after the gym, or on
-        the way to the park with your kids, we want you to feel proud of what
-        you&apos;re eating and excited to come back.
-      </p>
     </section>
   </UContainer>
 </template>
