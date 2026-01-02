@@ -759,19 +759,20 @@ async function submit() {
   }
 
   try {
-    const res = await $fetch('/api/orders', {
+    const res = await $fetch('/api/checkout', {
       method: 'POST',
       body
     })
 
-    if (res && res.success) {
-      message.value = 'Order placed! We\'ll see you at pickup 🎉'
-    } else {
-      message.value = 'Something went wrong placing your order.'
+    if (res && res.url) {
+      window.location.href = res.url
+      return
     }
+
+    message.value = 'Something went wrong starting checkout.'
   } catch (error) {
-    console.error('Order error', error)
-    message.value = 'Error placing order. Please try again.'
+    console.error('Checkout error', error)
+    message.value = 'Error starting checkout. Please try again.'
   } finally {
     loading.value = false
   }
