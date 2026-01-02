@@ -145,5 +145,4 @@ function focusDrop(drop) {
     drop.marker.togglePopup()
   }
 }
-
 </script>
