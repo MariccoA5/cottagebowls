@@ -73,7 +73,7 @@
           {{ order.size === 'snack' ? 'Snack 4 oz' : 'Meal 6 oz' }}
         </p>
         <p class="text-gray-800 mb-3">
-          <span class="font-semibold">Cottage cheese:</span>
+          <span class="font-semibold mr-1">Cottage cheese:</span>
           <span v-if="order.cottage_type === 'premium'">
             Good Culture (Premium)
           </span>
