@@ -18,7 +18,6 @@ async function joinWaitlist() {
 
   waitlistLoading.value = true
   waitlistMessage.value = ''
-
   try {
     await $fetch('/api/waitlist', {
       method: 'POST',
@@ -73,7 +72,7 @@ async function joinWaitlist() {
     </section>
 
     <!-- All sections below hero share one vertical gradient background -->
-    <section class="bg-gradient-to-b from-white to-amber-50">
+    <section class="bg-linear-to-b from-white to-amber-50">
       <!-- Grand Opening Banner -->
       <section class="bg-red-50 border-y border-red-200">
         <div class="grand-opening-marquee py-3">
@@ -151,10 +150,6 @@ async function joinWaitlist() {
                 <h3 class="text-2xl font-semibold text-gray-800 mb-3">
                   High-Protein Comfort
                 </h3>
-                <p class="text-gray-600">
-                  Cottage cheese bowls that feel like dessert but eat like a meal—
-                  satisfying, creamy, and built around protein.
-                </p>
               </div>
               <div class="text-center">
                 <div class="text-6xl mb-4">
@@ -163,10 +158,6 @@ async function joinWaitlist() {
                 <h3 class="text-2xl font-semibold text-gray-800 mb-3">
                   Better Than Frozen Treats
                 </h3>
-                <p class="text-gray-600">
-                  Healthier in every way than frozen yogurt and acai bowls, without the sugar
-                  crash or mystery bases.
-                </p>
               </div>
               <div class="text-center">
                 <div class="text-6xl mb-4">
@@ -175,9 +166,6 @@ async function joinWaitlist() {
                 <h3 class="text-2xl font-semibold text-gray-800 mb-3">
                   Guilt-Free
                 </h3>
-                <p class="text-gray-600">
-                  Every ingredient added is for your health benefit—clean fuel you can be proud of.
-                </p>
               </div>
             </div>
           </div>

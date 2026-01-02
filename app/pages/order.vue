@@ -96,7 +96,7 @@
                       >
                       <span>Snack 4 oz</span>
                       <span class="text-xs text-gray-500 ml-1">
-                        $4 standard / $5 Good Culture
+                        $4 base
                       </span>
                     </label>
                     <label class="inline-flex items-center gap-2 text-sm">
@@ -108,7 +108,7 @@
                       >
                       <span>Meal 6 oz</span>
                       <span class="text-xs text-gray-500 ml-1">
-                        $6 standard / $7 Good Culture
+                        $6 base
                       </span>
                     </label>
                   </div>
@@ -121,7 +121,7 @@
                       <p class="text-xs font-semibold text-amber-700 mb-1">
                         Standard
                       </p>
-                      <label class="inline-flex items-center gap-2 text-sm mb-1">
+                      <label class="inline-flex items-center gap-2 text-sm mb-2">
                         <input
                           v-model="cottageChoice"
                           type="radio"
@@ -135,7 +135,7 @@
                           v-model="cottageChoice"
                           type="radio"
                           value="lactaid"
-                          class="text-amber-600"
+                          class="text-amber-600 ml-3 md:ml-0"
                         >
                         <span>Lactaid (lactose-free)</span>
                       </label>
@@ -153,8 +153,8 @@
                         >
                         <span>Good Culture</span>
                       </label>
-                      <p class="text-xs text-gray-500 mt-1">
-                        Good Culture is $1 more for any bowl size.
+                      <p class="text-xs text-gray-500 mt-1 mx-5">
+                        $2 more for any bowl size.
                       </p>
                     </div>
                   </div>
@@ -228,7 +228,8 @@
               Build Your Own Toppings
             </h2>
             <p class="text-sm text-gray-600 mb-4">
-              Set how many scoops of each topping you want (0–5). Nuts are +$0.25, fruits are +$0.75, and the first sweetener is free (extra sweeteners +$0.50 each).
+              Set how many scoops of each topping you want (0–5). Base nuts are +$0.50 per scoop (premium nuts +$0.75),
+              base fruits are +$1.00 per scoop (premium fruits +$1.50), and the first sweetener is free (extra sweeteners +$0.50 each).
             </p>
 
             <div class="grid md:grid-cols-3 gap-6">
@@ -262,10 +263,10 @@
                   Nuts & Seeds
                 </h3>
                 <p class="text-xs text-gray-500 mb-2">
-                  +$0.25 per scoop.
+                  Nuts +$0.50 per scoop; premium nuts +$0.75.
                 </p>
                 <div
-                  v-for="topping in toppingCategories.nuts"
+                  v-for="topping in baseNuts"
                   :key="topping.key"
                   class="flex items-center justify-between mb-2"
                 >
@@ -287,11 +288,60 @@
                   Fruits
                 </h3>
                 <p class="text-xs text-gray-500 mb-2">
-                  +$0.75 per scoop.
+                  Fruits +$1.00 per scoop; premium fruits +$1.50.
                 </p>
                 <div
-                  v-for="topping in toppingCategories.fruit"
+                  v-for="topping in baseFruits"
                   :key="topping.key"
+                  class="flex items-center justify-between mb-2"
+                >
+                  <span class="text-sm">
+                    {{ topping.label }}
+                  </span>
+                  <UInput
+                    v-model.number="form.toppingCounts[topping.key]"
+                    type="number"
+                    :min="0"
+                    :max="MAX_TOPPING_COUNT"
+                    class="w-20 text-right"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-semibold text-amber-700 mb-2">
+                  Premium Nuts &amp; Fruits
+                </h3>
+                <p class="text-xs text-gray-500 mb-2">
+                  Premium nuts +$0.75 per scoop; premium fruits +$1.50 per scoop.
+                </p>
+
+                <div class="mb-2 text-xs font-semibold text-amber-700">
+                  Nuts
+                </div>
+                <div
+                  v-for="topping in premiumNuts"
+                  :key="`premium-nut-${topping.key}`"
+                  class="flex items-center justify-between mb-2"
+                >
+                  <span class="text-sm">
+                    {{ topping.label }}
+                  </span>
+                  <UInput
+                    v-model.number="form.toppingCounts[topping.key]"
+                    type="number"
+                    :min="0"
+                    :max="MAX_TOPPING_COUNT"
+                    class="w-20 text-right"
+                  />
+                </div>
+
+                <div class="mt-3 mb-2 text-xs font-semibold text-amber-700">
+                  Fruits
+                </div>
+                <div
+                  v-for="topping in premiumFruits"
+                  :key="`premium-fruit-${topping.key}`"
                   class="flex items-center justify-between mb-2"
                 >
                   <span class="text-sm">
@@ -439,12 +489,12 @@
 
 <script setup>
 const SNACK_STANDARD_PRICE_CENTS = 400
-const SNACK_PREMIUM_PRICE_CENTS = 500
+const SNACK_PREMIUM_PRICE_CENTS = 600
 const MEAL_STANDARD_PRICE_CENTS = 600
-const MEAL_PREMIUM_PRICE_CENTS = 700
+const MEAL_PREMIUM_PRICE_CENTS = 800
 
-const NUT_PRICE_CENTS = 25
-const FRUIT_PRICE_CENTS = 75
+const NUT_PRICE_CENTS = 50
+const FRUIT_PRICE_CENTS = 100
 const SWEETENER_EXTRA_PRICE_CENTS = 50
 const MAX_TOPPING_COUNT = 5
 
@@ -544,6 +594,22 @@ const allToppingsFlat = computed(() => {
   return Object.values(toppingCategories).flat()
 })
 
+const baseNuts = computed(() =>
+  toppingCategories.nuts.filter(t => t.key !== 'almond-slices' && t.key !== 'pecans')
+)
+
+const premiumNuts = computed(() =>
+  toppingCategories.nuts.filter(t => t.key === 'almond-slices' || t.key === 'pecans')
+)
+
+const baseFruits = computed(() =>
+  toppingCategories.fruit.filter(t => !['dates', 'mangos', 'pomegranate'].includes(t.key))
+)
+
+const premiumFruits = computed(() =>
+  toppingCategories.fruit.filter(t => ['dates', 'mangos', 'pomegranate'].includes(t.key))
+)
+
 onMounted(() => {
   // initialize counts to 0
   allToppingsFlat.value.forEach((t) => {
@@ -586,9 +652,15 @@ const toppingsSubtotalCents = computed(() => {
 
   for (const t of selectedToppingsDetailed.value) {
     if (t.category === 'nuts') {
-      nutsCents += NUT_PRICE_CENTS * t.count
+      // Base nuts $0.50, premium nuts (pecans, almond slices) $0.75
+      const isPremiumNut = t.key === 'pecans' || t.key === 'almond-slices'
+      const pricePerUnit = isPremiumNut ? 75 : NUT_PRICE_CENTS
+      nutsCents += pricePerUnit * t.count
     } else if (t.category === 'fruit') {
-      fruitCents += FRUIT_PRICE_CENTS * t.count
+      // Base fruits $1.00, premium fruits (dates, mangos, pomegranate) $1.50
+      const isPremiumFruit = t.key === 'dates' || t.key === 'mangos' || t.key === 'pomegranate'
+      const pricePerUnit = isPremiumFruit ? 150 : FRUIT_PRICE_CENTS
+      fruitCents += pricePerUnit * t.count
     } else if (t.category === 'sweetener') {
       sweetenerCount += t.count
     }
