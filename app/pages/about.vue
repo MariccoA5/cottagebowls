@@ -70,17 +70,14 @@
         </p>
       </div>
 
-      <!-- Image placeholders -->
-      <div class="grid gap-4 sm:grid-cols-2">
-        <div class="h-40 rounded-xl bg-amber-100/70 border border-dashed border-amber-300 flex items-center justify-center text-amber-700 text-sm text-center px-4">
-          Future photo of our family &amp; the Cottage Bowls crew.
-        </div>
-        <div class="h-40 rounded-xl bg-amber-100/70 border border-dashed border-amber-300 flex items-center justify-center text-amber-700 text-sm text-center px-4">
-          Future photo from early mornings prepping bowls.
-        </div>
-        <div class="h-40 rounded-xl bg-sky-100/60 border border-dashed border-sky-300 flex items-center justify-center text-sky-800 text-sm text-center px-4 sm:col-span-2">
-          Future collage of our St. George community, markets, and happy customers.
-        </div>
+      <!-- Family image -->
+      <div class="flex justify-center">
+        <img
+          src="/images/family.jpeg"
+          alt="The Cottage Bowls family"
+          class="w-full max-w-xl max-h-[36rem] rounded-2xl shadow-md border border-amber-100 object-cover"
+          style="object-position: center 75%;"
+        >
       </div>
     </section>
 
