@@ -228,8 +228,8 @@
               Build Your Own Toppings
             </h2>
             <p class="text-sm text-gray-600 mb-4">
-              Set how many scoops of each topping you want (0–5). Base nuts are +$0.50 per scoop (premium nuts +$0.75),
-              base fruits are +$1.00 per scoop (premium fruits +$1.50), and the first sweetener is free (extra sweeteners +$0.50 each).
+              Set how many scoops of each topping you want. Nuts are +$0.50 per scoop,
+              fruits are +$0.75 per scoop, and the first sweetener is free (extra sweeteners +$0.50 each).
             </p>
 
             <div class="grid md:grid-cols-3 gap-6">
@@ -260,11 +260,11 @@
 
               <div>
                 <h3 class="font-semibold text-amber-700 mb-2">
-                  Nuts & Seeds
+                  Nuts &amp; Seeds
                 </h3>
-                <p class="text-xs text-gray-500 mb-2">
-                  Nuts +$0.50 per scoop; premium nuts +$0.75.
-                </p>
+                <div class="mb-1 text-xs font-semibold text-amber-700">
+                  Standard
+                </div>
                 <div
                   v-for="topping in baseNuts"
                   :key="topping.key"
@@ -281,43 +281,9 @@
                     class="w-20 text-right"
                   />
                 </div>
-              </div>
 
-              <div>
-                <h3 class="font-semibold text-amber-700 mb-2">
-                  Fruits
-                </h3>
-                <p class="text-xs text-gray-500 mb-2">
-                  Fruits +$1.00 per scoop; premium fruits +$1.50.
-                </p>
-                <div
-                  v-for="topping in baseFruits"
-                  :key="topping.key"
-                  class="flex items-center justify-between mb-2"
-                >
-                  <span class="text-sm">
-                    {{ topping.label }}
-                  </span>
-                  <UInput
-                    v-model.number="form.toppingCounts[topping.key]"
-                    type="number"
-                    :min="0"
-                    :max="MAX_TOPPING_COUNT"
-                    class="w-20 text-right"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <h3 class="font-semibold text-amber-700 mb-2">
-                  Premium Nuts &amp; Fruits
-                </h3>
-                <p class="text-xs text-gray-500 mb-2">
-                  Premium nuts +$0.75 per scoop; premium fruits +$1.50 per scoop.
-                </p>
-
-                <div class="mb-2 text-xs font-semibold text-amber-700">
-                  Nuts
+                <div class="mt-3 mb-1 text-xs font-semibold text-amber-700">
+                  Premium (+$0.25)
                 </div>
                 <div
                   v-for="topping in premiumNuts"
@@ -335,9 +301,31 @@
                     class="w-20 text-right"
                   />
                 </div>
+              </div>
 
-                <div class="mt-3 mb-2 text-xs font-semibold text-amber-700">
+              <div>
+                <h3 class="font-semibold text-amber-700 mb-2 -2">
                   Fruits
+                </h3>
+                <div
+                  v-for="topping in baseFruits"
+                  :key="topping.key"
+                  class="flex items-center justify-between mb-2"
+                >
+                  <span class="text-sm">
+                    {{ topping.label }}
+                  </span>
+                  <UInput
+                    v-model.number="form.toppingCounts[topping.key]"
+                    type="number"
+                    :min="0"
+                    :max="MAX_TOPPING_COUNT"
+                    class="w-20 text-right"
+                  />
+                </div>
+
+                <div class="mt-3 mb-1 text-xs font-semibold text-amber-700">
+                  Premium (+$0.50)
                 </div>
                 <div
                   v-for="topping in premiumFruits"
@@ -393,7 +381,7 @@
 
       <!-- Summary card -->
       <div class="md:col-span-1">
-        <UCard>
+        <UCard class="md:sticky md:top-24">
           <h2 class="text-xl font-semibold text-amber-800 mb-2">
             Order Summary
           </h2>
@@ -494,7 +482,7 @@ const MEAL_STANDARD_PRICE_CENTS = 600
 const MEAL_PREMIUM_PRICE_CENTS = 800
 
 const NUT_PRICE_CENTS = 50
-const FRUIT_PRICE_CENTS = 100
+const FRUIT_PRICE_CENTS = 75
 const SWEETENER_EXTRA_PRICE_CENTS = 50
 const MAX_TOPPING_COUNT = 5
 
@@ -560,18 +548,18 @@ const toppingCategories = {
 const premadeBowls = [
   {
     key: 'classic',
-    name: '#1 Agave, Chia, Almonds, Strawberries & Blueberries',
-    toppings: ['agave', 'chia', 'almond-slices', 'strawberries', 'blueberries']
+    name: '#1 Strawberries & Blueberries Bowl',
+    toppings: ['strawberries', 'blueberries', 'agave', 'chia', 'almond-slices']
   },
   {
     key: 'seasonal',
     name: '#2 Seasonal Bowl',
-    toppings: ['agave', 'chia', 'almond-slices', 'mangos', 'pomegranate']
+    toppings: ['mangos', 'pomegranate', 'agave', 'chia', 'almond-slices']
   },
   {
     key: 'banana-dates',
     name: '#3 Banana & Dates Bowl',
-    toppings: ['agave', 'chia', 'almond-slices', 'bananas', 'dates']
+    toppings: ['bananas', 'dates', 'agave', 'chia', 'almond-slices']
   }
 ]
 
