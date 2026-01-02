@@ -765,7 +765,7 @@ async function submit() {
     })
 
     if (res && res.success) {
-      message.value = 'Order placed! Check your Supabase dashboard 🎉'
+      message.value = 'Order placed! We\'ll see you at pickup 🎉'
     } else {
       message.value = 'Something went wrong placing your order.'
     }

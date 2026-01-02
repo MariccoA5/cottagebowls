@@ -1,17 +1,15 @@
-import { createClient } from '@supabase/supabase-js'
+import { neon } from '@neondatabase/serverless'
 
-const supabaseUrl = process.env.SUPABASE_URL
-// Prefer SUPABASE_ANON_KEY (Vercel / .env.local), but support legacy SUPABASE_KEY
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY
+const databaseUrl = process.env.DATABASE_URL
 
-if (!supabaseUrl || !supabaseAnonKey) {
+if (!databaseUrl) {
   throw createError({
     statusCode: 500,
-    statusMessage: 'Supabase credentials missing for waitlist handler'
+    statusMessage: 'Database URL missing for waitlist handler'
   })
 }
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
+const sql = neon(databaseUrl)
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -25,23 +23,19 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const { data, error } = await supabase
-    .from('waitlist')
-    .insert({
-      email,
-      source,
-      created_at: new Date().toISOString()
-    })
-    .select()
+  try {
+    const rows = await sql`
+      insert into waitlist (email, source)
+      values (${email}, ${source})
+      returning *
+    `
 
-  if (error) {
-    console.error('Supabase waitlist insert error:', error)
+    return { success: true, data: rows }
+  } catch (error) {
+    console.error('Neon insert error (waitlist):', error)
     throw createError({
       statusCode: 500,
       statusMessage: 'Failed to save waitlist signup'
     })
   }
-
-  return { success: true, data }
-}
-)
+})

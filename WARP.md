@@ -20,10 +20,9 @@ Start the Nuxt dev server on `http://localhost:3000`:
 npm run dev
 ```
 
-Environment variables for Supabase are read from `process.env` in `server/api/orders.post.ts`. To avoid runtime errors when hitting the `/api/orders` endpoint (used by the `test-order` page), ensure these are set before running the dev server:
+Environment variables for the Neon Postgres database are read from `process.env` in the Nitro server handlers. To avoid runtime errors when hitting the `/api/orders` or `/api/waitlist` endpoints, ensure this is set before running the dev server:
 
-- `SUPABASE_URL`
-- `SUPABASE_KEY`
+- `DATABASE_URL`
 
 ### Production build and preview
 
@@ -90,22 +89,25 @@ There is currently no test script configured in `package.json`; when a test runn
 Nuxt file-based routing is used under `app/pages/`:
 
 - `index.vue` — Landing/marketing page
-  - Full-screen hero section with a background image (`/images/hero-bowl3.png`) and call-to-action button linking to `/locations`.
-  - "Why Cottage Bowls" feature section and image preview of bowls.
+  - Hero section with background image (`/images/hero-bowl3.png`), grand opening marquee, and CTA buttons that route into the ordering flow.
+  - "How it works" and comparison sections explaining why Cottage Bowls vs frozen yogurt and acai, including nutrition and price comparisons with badges.
+  - Email waitlist form at the bottom that posts to `/api/waitlist` and stores signups in Neon Postgres.
 - `locations.vue` — Map and pickup locations
   - Uses Mapbox GL JS (`mapbox-gl`) to render an interactive map centered on St. George.
   - Defines a `drops` array of pickup locations (id, name, address, schedule, coordinates) and builds both map markers and a responsive card grid.
-  - Clicking a card calls `focusDrop(drop)` to fly the map to that location and open its popup.
-  - `preorder(drop)` and `globalPreorder()` are simple client-side `alert` flows for now (no backend persistence here).
+  - Clicking a card focuses the map on that location and opens its popup.
+  - "Reserve a Bowl" buttons link to `/order?locationId=...` so the order page is pre-filtered to the chosen pickup location.
+  - Bottom CTA routes visitors to the Support page.
   - Mapbox token is currently set directly on `mapboxgl.accessToken` in this file.
-- `order.vue` — Placeholder order page
-  - Simple page that currently points users back to drop-off locations.
-- `test-order.vue` — Supabase-backed test order form
-  - Uses Nuxt UI form components (`UForm`, `UFormField`, `UInput`, `UCheckbox`, `UButton`).
-  - `form` state includes `name`, `email`, `phone`, `location`, `toppings[]`, and `quantity`.
-  - On submit, computes a `total` based on base price (15) plus per-topping add-ons and posts JSON to `/api/orders`.
-  - Displays a success or error message based on the API response.
-- Additional marketing/support pages (`about.vue`, `support.vue`) live alongside these and are standard static content pages wired into `TheHeader` navigation.
+- `order.vue` — Main ordering experience
+  - Full bowl builder with pickup location selector, customer details, base bowl (size + cottage cheese brand), premade bowls, and a build-your-own toppings section.
+  - Topping pricing handled in cents with standard vs premium nuts and fruits and sweetener rules; order summary card is sticky on desktop.
+  - Submits orders to `/api/orders`, which persists to Neon Postgres.
+- `test-order.vue` — Legacy test order form (can be removed once no longer needed)
+  - Older, simpler form that used to post to Supabase; current production ordering flow is handled by `order.vue`.
+- `about.vue` and `support.vue` — Marketing/support pages
+  - About: family story, US Army service, healthy-living philosophy, and family photo from `/images/family.jpeg`.
+  - Support: contact info and how users can support the business.
 
 ### Layout components
 
@@ -126,11 +128,14 @@ Located in `app/components/`:
 
 - `server/api/orders.post.ts`
   - Nitro server route handling `POST /api/orders`.
-  - Creates a Supabase client with `createClient(supabaseUrl, supabaseAnonKey)` from `@supabase/supabase-js`.
-  - Expects `SUPABASE_URL` and `SUPABASE_KEY` environment variables to be defined; if either is missing, throws a 500 error at import time via `createError` with message `Supabase credentials missinggg`.
-  - In the handler, reads the JSON request body and inserts it into the `orders` table: `supabase.from('orders').insert(body).select()`.
-  - Logs and surfaces a 500 error if the insert fails, otherwise returns `{ success: true, data }`.
-- The `test-order` page is currently the primary consumer of this API, and its `body` shape (form fields plus `total`) should stay in sync with the Supabase `orders` table schema.
+  - Uses `@neondatabase/serverless` and the `DATABASE_URL` env var to create a Neon Postgres client.
+  - On each request, reads the JSON body and inserts a row into the `orders` table, including customer info, pickup location, base pricing, toppings (stored as `jsonb`), preset key, and `total_cents`.
+  - Logs a 500 error if the insert fails and otherwise returns `{ success: true, data }` with the inserted rows.
+- `server/api/waitlist.post.ts`
+  - Nitro server route handling `POST /api/waitlist`.
+  - Also uses the Neon client to insert `email` and `source` into the `waitlist` table.
+  - Validates that `email` is present and returns a 400 if not.
+- The main `order.vue` page and the landing-page waitlist form are the primary consumers of these APIs, and their payload shapes should stay in sync with the Neon `orders` and `waitlist` table schemas.
 
 ### Configuration and TypeScript
 
