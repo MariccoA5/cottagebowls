@@ -1,6 +1,6 @@
 <template>
   <UHeader
-    class="sticky top-0 z-50 border-b border-gray-200"
+    class="sticky top-0 z-50 border-b border-gray-200 backdrop-blur bg-white/80"
     :ui="{ container: 'py-4' }"
   >
     <template #left>

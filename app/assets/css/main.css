@@ -19,3 +19,35 @@
 :root {
   --ui-header-height: 6rem; 
 }
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+#app {
+  overflow-x: hidden;
+}
+
+/* Grand opening marquee banner */
+.grand-opening-marquee {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.grand-opening-marquee__inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  animation: grand-opening-marquee 22s linear infinite;
+}
+
+@keyframes grand-opening-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
