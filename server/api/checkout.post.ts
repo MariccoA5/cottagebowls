@@ -103,7 +103,7 @@ export default defineEventHandler(async (event) => {
     const requestUrl = getRequestURL(event)
     const origin = requestUrl.origin
 
-    const successUrl = `${origin}/order/confirmed?session_id={CHECKOUT_SESSION_ID}`
+    const successUrl = `${origin}/order-confirmed?session_id={CHECKOUT_SESSION_ID}`
     const cancelUrl = `${origin}/order?canceled=true`
 
     const session = await stripe.checkout.sessions.create({
