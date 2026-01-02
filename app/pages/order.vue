@@ -108,7 +108,7 @@
                       >
                       <span>Meal 6 oz</span>
                       <span class="text-xs text-gray-500 ml-1">
-                        $6 any cottage cheese
+                        $6 standard / $7 Good Culture
                       </span>
                     </label>
                   </div>
@@ -154,7 +154,7 @@
                         <span>Good Culture</span>
                       </label>
                       <p class="text-xs text-gray-500 mt-1">
-                        Good Culture is $1 more for snack bowls.
+                        Good Culture is $1 more for any bowl size.
                       </p>
                     </div>
                   </div>
@@ -440,7 +440,8 @@
 <script setup>
 const SNACK_STANDARD_PRICE_CENTS = 400
 const SNACK_PREMIUM_PRICE_CENTS = 500
-const MEAL_PRICE_CENTS = 600
+const MEAL_STANDARD_PRICE_CENTS = 600
+const MEAL_PREMIUM_PRICE_CENTS = 700
 
 const NUT_PRICE_CENTS = 25
 const FRUIT_PRICE_CENTS = 75
@@ -571,7 +572,11 @@ const basePriceCents = computed(() => {
       ? SNACK_PREMIUM_PRICE_CENTS
       : SNACK_STANDARD_PRICE_CENTS
   }
-  return MEAL_PRICE_CENTS
+
+  // Meal 6 oz: $6 standard, $7 Good Culture
+  return form.value.cottageType === 'premium'
+    ? MEAL_PREMIUM_PRICE_CENTS
+    : MEAL_STANDARD_PRICE_CENTS
 })
 
 const toppingsSubtotalCents = computed(() => {

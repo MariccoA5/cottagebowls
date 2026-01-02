@@ -57,7 +57,7 @@ async function joinWaitlist() {
           Fuel Your Day with Raw Power: High-Protein Cottage Cheese Bowls
         </h1>
         <p class="text-xl md:text-2xl text-white max-w-3xl mx-auto mb-12 drop-shadow-md">
-          Guilt-free naturally sweetened Cottage Bowls for those looking for healthier alternatives.
+          A sweet guilt-free alternative for health focused individuals.
         </p>
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
           <UButton
@@ -200,6 +200,11 @@ async function joinWaitlist() {
                   <li><span class="font-bold text-md">Price:</span> $6–$9+</li>
                   <li>Keeps you full for hours, not minutes.</li>
                 </ul>
+                <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                  <span class="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 font-semibold text-emerald-800 border border-emerald-200">
+                    Best overall macros & cheaper price.
+                  </span>
+                </div>
               </div>
             </UCard>
 
@@ -298,7 +303,7 @@ async function joinWaitlist() {
               Ready when you are—grab your first Cottage Bowl at one of our pickup spots.
             </p>
             <UButton
-              to="/order"
+              to="/locations"
               size="xl"
               color="primary"
               class="px-12 py-6 text-lg"

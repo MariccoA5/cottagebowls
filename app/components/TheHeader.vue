@@ -28,6 +28,12 @@
           Home
         </NuxtLink>
         <NuxtLink
+          to="/locations"
+          class="text-gray-700 hover:text-amber-700 font-medium"
+        >
+          Locations
+        </NuxtLink>
+        <NuxtLink
           to="/about"
           class="text-gray-700 hover:text-amber-700 font-medium"
         >
@@ -62,7 +68,7 @@
           to="/locations"
           class="text-gray-700 hover:text-amber-700 font-medium"
         >
-          Drop-Offs
+          Locations
         </NuxtLink>
         <NuxtLink
           to="/about"
