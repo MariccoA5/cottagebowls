@@ -35,7 +35,7 @@
         <UButton
           color="primary"
           block
-          @click.stop="preorder(drop)"
+          :to="`/order?locationId=${drop.orderLocationId}`"
         >
           Reserve A Bowl & Meet Here
         </UButton>
@@ -53,7 +53,7 @@
       <UButton
         size="xl"
         color="primary"
-        @click="globalPreorder"
+        to="/support"
       >
         Support & Join the Community
       </UButton>
@@ -74,21 +74,25 @@ const drops = [
     location: 'Thunder Junction Park',
     address: '1851 S Dixie Dr, St. George, UT 84770',
     schedule: 'Thursday 4-6pm',
-    lngLat: [-113.60031, 37.077827] // Times: Thursday 4-6pm
+    lngLat: [-113.60031, 37.077827], // Times: Thursday 4-6pm
+    // Used to pre-select location on /order page
+    orderLocationId: 'thunder-junction'
   },
   {
     id: 2,
     location: 'Sand Hollow State Park',
     address: '3351 Sand Hollow Rd, Hurricane, UT 84737',
     schedule: 'Friday, 11am-1pm | Sunday, 11am-1pm',
-    lngLat: [-113.390004, 37.117812] // Times: Friday, 11am-1pm | Sunday, 11am-1pm
+    lngLat: [-113.390004, 37.117812], // Times: Friday, 11am-1pm | Sunday, 11am-1pm
+    orderLocationId: 'sand-hollow'
   },
   {
     id: 3,
     location: 'Vernon Worthen Park',
     address: '300 S 400 E, St. George, UT 84770',
     schedule: 'Saturday, 10am-12pm',
-    lngLat: [-113.5758844, 37.1040429] // Times: Saturday Market, 10am-12pm
+    lngLat: [-113.5758844, 37.1040429], // Times: Saturday Market, 10am-12pm
+    orderLocationId: 'vernon-worthen'
   }
   // {
   //   id: 4,
@@ -142,11 +146,4 @@ function focusDrop(drop) {
   }
 }
 
-function preorder(drop) {
-  alert(`Preorder locked in for ${drop.location} on ${drop.schedule}! I'll have your fresh bowl ready. Pay $15 when we meet. ☀️`)
-}
-
-function globalPreorder() {
-  alert('Thank you for believing in Cottage Bowls! Email cottagebowls@gmail.com with your preorder amount and shipping address. Early investors get priority bowls + future Cottage Coin perks. No refunds — all in on fresh goodness! 🥣☀️')
-}
 </script>
