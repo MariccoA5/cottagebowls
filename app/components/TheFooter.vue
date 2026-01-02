@@ -1,6 +1,6 @@
 <!-- components/TheFooter.vue -->
 <template>
-  <UFooter class="border-t border-gray-200 dark:border-gray-800 py-12 bg-linear-to-t from-amber-50 to-transparent dark:from-gray-900">
+  <UFooter class="border-t border-gray-200 py-12 bg-linear-to-t from-amber-50 to-transparent">
     <template #left>
       <p class="text-md text-gray-600 dark:text-gray-400">
         Made with ♥️ in St. George, Utah • © {{ new Date().getFullYear() }} Cottage Bowls 🇺🇸

@@ -374,7 +374,7 @@ async function joinWaitlist() {
               v-model="waitlistEmail"
               type="email"
               required
-              class="flex-1 text-black placeholder:text-black"
+              class="flex-1 bg-white text-black placeholder:text-black"
               color="neutral"
               placeholder="you@example.com"
             />

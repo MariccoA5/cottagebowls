@@ -2,9 +2,11 @@ export default defineAppConfig({
   ui: {
     colors: {
       primary: 'amber',
-      neutral: 'sky',
+      // Use a neutral gray palette instead of blue-ish sky
+      neutral: 'gray',
       gray: 'stone',
-      background: 'bg-gradient-to-b from-sky-200 to-amber-50'
+      // Softer warm background without blue tint
+      background: 'bg-gradient-to-b from-amber-50 to-white'
     }
   }
 })
