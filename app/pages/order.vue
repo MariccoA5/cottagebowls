@@ -228,8 +228,9 @@
               Build Your Own Toppings
             </h2>
             <p class="text-sm text-gray-600 mb-4">
-              Set how many scoops of each topping you want. Nuts are +$0.50 per scoop,
-              fruits are +$0.75 per scoop, and the first sweetener is free (extra sweeteners +$0.50 each).
+              Set how many scoops of each topping you want. Standard nuts are +$0.50 per scoop,
+              premium nuts are +$0.75, standard fruit is +$0.75 per scoop, and premium fruit is +$1.25.
+              The first sweetener is free (extra sweeteners +$0.50 each).
             </p>
 
             <div class="grid md:grid-cols-3 gap-6">
@@ -263,7 +264,7 @@
                   Nuts &amp; Seeds
                 </h3>
                 <div class="mb-1 text-xs font-semibold text-amber-700">
-                  Standard
+                  Standard (+$0.50)
                 </div>
                 <div
                   v-for="topping in baseNuts"
@@ -645,9 +646,9 @@ const toppingsSubtotalCents = computed(() => {
       const pricePerUnit = isPremiumNut ? 75 : NUT_PRICE_CENTS
       nutsCents += pricePerUnit * t.count
     } else if (t.category === 'fruit') {
-      // Base fruits $1.00, premium fruits (dates, mangos, pomegranate) $1.50
+      // Base fruits $0.75, premium fruits (dates, mangos, pomegranate) $1.25
       const isPremiumFruit = t.key === 'dates' || t.key === 'mangos' || t.key === 'pomegranate'
-      const pricePerUnit = isPremiumFruit ? 150 : FRUIT_PRICE_CENTS
+      const pricePerUnit = isPremiumFruit ? 125 : FRUIT_PRICE_CENTS
       fruitCents += pricePerUnit * t.count
     } else if (t.category === 'sweetener') {
       sweetenerCount += t.count

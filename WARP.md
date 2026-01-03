@@ -20,9 +20,11 @@ Start the Nuxt dev server on `http://localhost:3000`:
 npm run dev
 ```
 
-Environment variables for the Neon Postgres database are read from `process.env` in the Nitro server handlers. To avoid runtime errors when hitting the `/api/orders` or `/api/waitlist` endpoints, ensure this is set before running the dev server:
+Environment variables for the Neon Postgres database and Stripe are read from `process.env` in the Nitro server handlers. To avoid runtime errors when hitting the `/api/*` endpoints, ensure these are set before running the dev server:
 
 - `DATABASE_URL`
+- `STRIPE_SECRET_KEY`
+- `STRIPE_WEBHOOK_SECRET`
 
 ### Production build and preview
 
@@ -101,13 +103,19 @@ Nuxt file-based routing is used under `app/pages/`:
   - Mapbox token is currently set directly on `mapboxgl.accessToken` in this file.
 - `order.vue` — Main ordering experience
   - Full bowl builder with pickup location selector, customer details, base bowl (size + cottage cheese brand), premade bowls, and a build-your-own toppings section.
-  - Topping pricing handled in cents with standard vs premium nuts and fruits and sweetener rules; order summary card is sticky on desktop.
-  - Submits orders to `/api/orders`, which persists to Neon Postgres.
+  - Topping pricing handled in cents with standard vs premium nuts and fruits and sweetener rules (standard nuts $0.50, premium nuts $0.75, standard fruit $0.75, premium fruit $1.25, first sweetener free and extras $0.50); order summary card is sticky on desktop.
+  - Submits orders to `/api/checkout`, which creates a Neon `orders` row and a Stripe Checkout Session; Stripe redirects back to `order-confirmed` after payment.
+- `order-confirmed.vue` — Order confirmation page
+  - Reads `session_id` from the URL and calls `/api/order-by-session` to load the order by `stripe_session_id`.
+  - Shows customer info, pickup location, bowl configuration, toppings, and total paid.
 - `test-order.vue` — Legacy test order form (can be removed once no longer needed)
-  - Older, simpler form that used to post to Supabase; current production ordering flow is handled by `order.vue`.
-- `about.vue` and `support.vue` — Marketing/support pages
-  - About: family story, US Army service, healthy-living philosophy, and family photo from `/images/family.jpeg`.
-  - Support: contact info and how users can support the business.
+  - Older, simpler form that used to post to Supabase; current production ordering flow is handled by `order.vue` + Stripe Checkout.
+- `support.vue` — Support/donations page
+  - Contact info and how users can support the business.
+  - Donation form that collects name, email, phone, amount, and a note, then calls `/api/donate-checkout` to start a Stripe donation Checkout Session.
+- `donation-confirmed.vue` — Donation confirmation page
+  - Reads `session_id` from the URL and calls `/api/donation-by-session` to load a donation by `stripe_session_id`.
+  - Shows supporter details, amount, note, and explains future rewards for early supporters.
 
 ### Layout components
 
@@ -127,15 +135,33 @@ Located in `app/components/`:
 ### Server API and backend integration
 
 - `server/api/orders.post.ts`
-  - Nitro server route handling `POST /api/orders`.
+  - Historic Nitro route that previously handled `POST /api/orders` directly into Neon.
+  - Kept for reference/possible future use, but the primary order flow now uses Stripe Checkout via `/api/checkout`.
+- `server/api/checkout.post.ts`
+  - Nitro server route handling order checkout.
   - Uses `@neondatabase/serverless` and the `DATABASE_URL` env var to create a Neon Postgres client.
-  - On each request, reads the JSON body and inserts a row into the `orders` table, including customer info, pickup location, base pricing, toppings (stored as `jsonb`), preset key, and `total_cents`.
-  - Logs a 500 error if the insert fails and otherwise returns `{ success: true, data }` with the inserted rows.
+  - Validates order payload, inserts a row into the `orders` table with `status = 'pending_payment'`, then creates a Stripe Checkout Session with `total_cents` as the line item amount.
+  - Stores `stripe_session_id` on the order and returns the Checkout URL to the frontend.
+- `server/api/order-by-session.get.ts`
+  - Looks up an order row by `stripe_session_id` for use on `order-confirmed.vue`.
+- `server/api/donate-checkout.post.ts`
+  - Nitro server route handling donation checkout from the Support page.
+  - Creates a Neon `donations` row and a Stripe Checkout Session using the submitted `amount_cents`, storing `donation_id` in Checkout metadata.
+- `server/api/donation-by-session.get.ts`
+  - Looks up a donation row by `stripe_session_id` for use on `donation-confirmed.vue`.
 - `server/api/waitlist.post.ts`
   - Nitro server route handling `POST /api/waitlist`.
-  - Also uses the Neon client to insert `email` and `source` into the `waitlist` table.
+  - Uses the Neon client to insert `email` and `source` into the `waitlist` table.
   - Validates that `email` is present and returns a 400 if not.
-- The main `order.vue` page and the landing-page waitlist form are the primary consumers of these APIs, and their payload shapes should stay in sync with the Neon `orders` and `waitlist` table schemas.
+- `server/api/stripe-webhook.post.ts`
+  - Stripe webhook endpoint that verifies the Stripe signature and handles `checkout.session.completed` events.
+  - If `metadata.order_id` is present, marks the corresponding order as `paid` and stores `stripe_session_id` and `stripe_payment_intent_id`.
+  - If `metadata.donation_id` is present, marks the corresponding donation as `paid` with the same Stripe identifiers.
+- `server/api/admin-orders.get.ts`
+  - Admin-only listing of paid orders, with `scope` query support for `today` vs `recent` and a capped `limit`.
+- `server/api/admin-donations.get.ts`
+  - Admin-only listing of paid donations, similarly scoped and limited.
+- The main `order.vue` page, `support.vue` donations form, `order-confirmed.vue`, and `donation-confirmed.vue` are the primary consumers of these APIs, and their payload shapes should stay in sync with the Neon `orders`, `donations`, and `waitlist` table schemas.
 
 ### Configuration and TypeScript
 
