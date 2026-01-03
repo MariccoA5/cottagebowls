@@ -42,12 +42,21 @@
               </p>
             </div>
             <div class="flex items-center gap-2">
-              <USelect
-                v-model="ordersScope"
-                :options="orderScopeOptions"
-                size="xs"
-                class="w-32"
-              />
+              <div class="flex items-center gap-1">
+                <button
+                  v-for="scope in orderScopeOptions"
+                  :key="scope"
+                  @click="ordersScope = scope"
+                  :class="[
+                    'px-3 py-1 text-xs rounded-md transition-colors',
+                    ordersScope === scope
+                      ? 'bg-amber-100 text-amber-800 font-medium'
+                      : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  ]"
+                >
+                  {{ scope.charAt(0).toUpperCase() + scope.slice(1) }}
+                </button>
+              </div>
               <UButton
                 size="xs"
                 color="gray"
@@ -61,10 +70,16 @@
           </div>
         </template>
 
-        <div v-if="loadingOrders" class="text-sm text-gray-600">
+        <div
+          v-if="loadingOrders"
+          class="text-sm text-gray-600"
+        >
           Loading orders...
         </div>
-        <div v-else-if="ordersError" class="text-sm text-red-600">
+        <div
+          v-else-if="ordersError"
+          class="text-sm text-red-600"
+        >
           Failed to load orders.
         </div>
         <div v-else>
@@ -133,25 +148,19 @@
           <div class="flex items-center justify-between gap-2">
             <div>
               <h2 class="text-lg font-semibold text-amber-800">
-                Recent Donations
+                Weekly Donations
               </h2>
               <p class="text-xs text-gray-600">
-                Compact view of paid donations.
+                Compact view of paid donations from the last 7 days.
               </p>
             </div>
             <div class="flex items-center gap-2">
-              <USelect
-                v-model="donationsScope"
-                :options="donationScopeOptions"
-                size="xs"
-                class="w-32"
-              />
               <UButton
                 size="xs"
                 color="gray"
                 variant="ghost"
                 :loading="loadingDonations"
-                @click="loadDonations(donationsScope)"
+                @click="loadDonations('week')"
               >
                 Refresh
               </UButton>
@@ -159,19 +168,22 @@
           </div>
         </template>
 
-        <div v-if="loadingDonations" class="text-sm text-gray-600">
+        <div
+          v-if="loadingDonations"
+          class="text-sm text-gray-600"
+        >
           Loading donations...
         </div>
-        <div v-else-if="donationsError" class="text-sm text-red-600">
+        <div
+          v-else-if="donationsError"
+          class="text-sm text-red-600"
+        >
           Failed to load donations.
         </div>
         <div v-else>
           <p class="text-xs text-gray-600 mb-2">
             Showing {{ donations.length }} paid donation{{ donations.length === 1 ? '' : 's' }}
-            for
-            <span class="font-medium">
-              {{ donationsScopeLabel }}
-            </span>.
+            from the last 7 days.
           </p>
           <div class="space-y-3 max-h-[28rem] overflow-auto pr-1">
             <UCard
@@ -221,11 +233,8 @@ const ordersScope = ref('today')
 const loadingDonations = ref(false)
 const donationsError = ref(false)
 const donations = ref([])
-const donationsScope = ref('recent')
 
 const orderScopeOptions = ['today', 'week', 'month']
-
-const donationScopeOptions = ['recent', 'today']
 
 const adminKey = ref('')
 
@@ -233,11 +242,6 @@ const ordersScopeLabel = computed(() => {
   if (ordersScope.value === 'week') return 'this week'
   if (ordersScope.value === 'month') return 'this month'
   return 'today'
-})
-
-const donationsScopeLabel = computed(() => {
-  if (donationsScope.value === 'today') return 'today'
-  return 'recent'
 })
 
 function formatDateTime(value) {
@@ -254,7 +258,6 @@ function formatDateTime(value) {
 async function loadOrders(scope = 'today') {
   loadingOrders.value = true
   ordersError.value = false
-  ordersScope.value = scope
 
   try {
     const res = await $fetch('/api/admin-orders', {
@@ -277,7 +280,6 @@ async function loadOrders(scope = 'today') {
 async function loadDonations(scope = 'recent') {
   loadingDonations.value = true
   donationsError.value = false
-  donationsScope.value = scope
 
   try {
     const res = await $fetch('/api/admin-donations', {
@@ -323,12 +325,8 @@ function onAdminKeyBlur() {
   }
 }
 
-watch(ordersScope, (scope) => {
-  loadOrders(scope)
-})
-
-watch(donationsScope, (scope) => {
-  loadDonations(scope)
+watch(ordersScope, (newScope) => {
+  loadOrders(newScope)
 })
 
 onMounted(() => {
@@ -339,6 +337,6 @@ onMounted(() => {
     }
   }
   loadOrders('today')
-  loadDonations('recent')
+  loadDonations('week')
 })
 </script>

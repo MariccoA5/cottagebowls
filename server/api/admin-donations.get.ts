@@ -42,6 +42,15 @@ export default defineEventHandler(async (event) => {
         order by created_at desc
         limit ${safeLimit}
       `
+    } else if (scope === 'week') {
+      rows = await sql`
+        select *
+        from donations
+        where status = 'paid'
+          and created_at >= current_date - interval '7 days'
+        order by created_at desc
+        limit ${safeLimit}
+      `
     } else {
       rows = await sql`
         select *
