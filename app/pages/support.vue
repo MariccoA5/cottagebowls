@@ -40,13 +40,24 @@
               href="tel:+14355550123"
               class="text-sky-700 hover:underline"
             >
-              (435) 555-0123
+              (360) 606-0098
             </a>
           </div>
           <div class="flex items-start gap-3">
             <span class="font-semibold w-20">Instagram</span>
             <a
               href="https://instagram.com/cottagebowls"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sky-700 hover:underline break-all"
+            >
+              @cottagebowls
+            </a>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="font-semibold w-20">X</span>
+            <a
+              href="https://x.com/cottagebowls"
               target="_blank"
               rel="noopener noreferrer"
               class="text-sky-700 hover:underline break-all"
@@ -80,7 +91,7 @@
             Donate to Fuel Our Growth
           </h3>
           <p class="text-gray-700 text-sm mb-4">
-            Think of it like helping your favorite local spot get to the next level.
+            Help your favorite local spot get to the next level.
             Donations go toward equipment, ingredients, and scaling our operations.
           </p>
 

@@ -228,8 +228,7 @@
               Build Your Own Toppings
             </h2>
             <p class="text-sm text-gray-600 mb-4">
-              Set how many scoops of each topping you want. Standard nuts are +$0.50 per scoop,
-              premium nuts are +$0.75, standard fruit is +$0.75 per scoop, and premium fruit is +$1.25.
+              Set how many scoops of each topping you want. Standard nuts are +$0.50 per scoop, standard fruit is +$0.75 per scoop.
               The first sweetener is free (extra sweeteners +$0.50 each).
             </p>
 
