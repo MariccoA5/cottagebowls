@@ -54,6 +54,7 @@ export default defineEventHandler(async (event) => {
     if (stripeEvent.type === 'checkout.session.completed') {
       const session = stripeEvent.data.object as Stripe.Checkout.Session
       const orderId = session.metadata?.order_id
+      const donationId = session.metadata?.donation_id
       const paymentIntentId = session.payment_intent
         ? session.payment_intent.toString()
         : null
@@ -66,6 +67,14 @@ export default defineEventHandler(async (event) => {
               stripe_session_id = ${sessionId},
               stripe_payment_intent_id = ${paymentIntentId}
           where id = ${orderId}
+        `
+      } else if (donationId) {
+        await sql`
+          update donations
+          set status = 'paid',
+              stripe_session_id = ${sessionId},
+              stripe_payment_intent_id = ${paymentIntentId}
+          where id = ${donationId}
         `
       }
     }
