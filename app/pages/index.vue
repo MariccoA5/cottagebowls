@@ -185,7 +185,7 @@ async function joinWaitlist() {
                   <li><span class="font-bold text-md">Sugar:</span> ~5–15g (from natural sweeteners)</li>
                   <li><span class="font-bold text-md">Fiber:</span> ~0–5g</li>
                   <li><span class="font-bold text-md">Calories:</span> ~140–250</li>
-                  <li><span class="font-bold text-md">Price:</span> $6–$9+</li>
+                  <li><span class="font-bold text-md">Price:</span> $6–$10+</li>
                   <li>Keeps you full for hours, not minutes.</li>
                 </ul>
                 <div class="mt-4 flex flex-wrap gap-2 text-xs">

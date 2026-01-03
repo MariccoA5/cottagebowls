@@ -6,9 +6,8 @@
         Our Story at Cottage Bowls
       </h1>
       <p class="text-lg text-gray-700">
-        Cottage Bowls was born from a simple idea: healthy food should feel like home.
-        We create high-protein cottage cheese bowls that are bright, filling, and
-        made with the same care we put into family meals around our own table.
+        Cottage Bowls was born from my family's view on healthy eating:
+        Prioritize high-protein, healthy fats, and lower-carb options. During my wife's third pregnancy, she craved a sweet treat, but wanted to make sure it was healthy for our baby. After creating the first bowl, we fell in love with the meal. From there, we have created various other bowls inspired by the same principles.
       </p>
     </section>
 
@@ -19,28 +18,24 @@
           Real Food, Real Fuel
         </h2>
         <p class="text-gray-700 text-sm">
-          We believe food should work for you. High-protein, slow-digesting cottage
-          cheese, fresh toppings, and wholesome ingredients that keep you full and
-          energized—without the crash.
+          Food is what makes up every cell in our body; we prioritize using the highest-quality ingredients for optimal living. Protein and high-quality fats should always be the main portions of your diet.
         </p>
       </UCard>
       <UCard class="bg-amber-50/70 border-amber-100">
         <h2 class="text-xl font-semibold text-amber-800 mb-2">
-          Family at the Center
+          Family First
         </h2>
         <p class="text-gray-700 text-sm">
           Cottage Bowls is a family-run business. Every bowl is inspired by the
-          way we feed our own kids, friends, and neighbors in St. George—gathered
-          around good food, sunshine, and conversation.
+          way we feed our own kids, friends, and neighbors in St. George—sourcing from local farmers and producers is important to us.
         </p>
       </UCard>
       <UCard class="bg-amber-50/70 border-amber-100">
         <h2 class="text-xl font-semibold text-amber-800 mb-2">
-          Consistency & Care
+          Forward Thinking
         </h2>
         <p class="text-gray-700 text-sm">
-          From early prep hours to the last pickup of the day, we show up with the
-          same standard: clean, quality ingredients and bowls made with pride.
+          At Cottage Bowls, we are always looking for ways to improve our products and services. The goal is create more ways for us to enable you to live a healthy life.
         </p>
       </UCard>
     </section>
@@ -50,19 +45,10 @@
       <div class="space-y-6">
         <div class="space-y-4">
           <h2 class="text-2xl font-semibold text-amber-800">
-            A Family Story Rooted in Service
+            A Journey Rooted in Service
           </h2>
           <p class="text-gray-700">
-            Our journey started long before the first Cottage Bowl was served. Our
-            family has deep roots in service through the U.S. Army—years of early
-            mornings, discipline, and a commitment to something bigger than
-            ourselves.
-          </p>
-          <p class="text-gray-700">
-            That experience shaped how we show up in business and in our community:
-            be dependable, take care of your people, and always leave things better
-            than you found them. Cottage Bowls is one more way we continue that
-            mission—by serving food that helps people feel and live better.
+            Cottage Bowls is a family-run business led by me, Maricco Allen, a US Army veteran with a passion for service and innovation. Born in California and raised in Washington State, I've always been driven to contribute to something greater than myself. After serving 7 years in IT for the Army—where I met my wife, also a veteran—we transitioned out of the military in December 2022, just as our family grew with two young boys (and we're expecting our third any day now). That first year in California was tough, scraping by while I self-taught software engineering to build apps that could make a real impact. Using my GI Bill, we relocated to Utah Tech in St. George in 2024—a place that's starting to feel like home after two years. Currently pursuing a degree in Mechatronics, I'm blending software and hardware to help rebuild America's manufacturing through robotics and automation. Cottage Bowls is my way of kicking off that transformation: a business born from our family's love for healthy, real fuel that keeps us fit and focused in a world that needs more of it.
           </p>
           <p class="text-gray-700">
             When you support Cottage Bowls, you are supporting a military family,
@@ -75,12 +61,6 @@
           <h2 class="text-2xl font-semibold text-amber-800">
             Our Love for Healthy Living
           </h2>
-          <p class="text-gray-700">
-            We don&apos;t believe in perfection—we believe in better. Better choices,
-            better fuel, and better habits that fit real life. For us, that looks like
-            building bowls around protein, fresh fruits, crunchy toppings, and
-            balance.
-          </p>
           <p class="text-gray-700">
             Cottage Bowls is our way of making healthy eating the easy choice on busy
             days. Whether you&apos;re grabbing a bowl before work, after the gym, or on
