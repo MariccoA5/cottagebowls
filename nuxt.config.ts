@@ -21,6 +21,12 @@ export default defineNuxtConfig({
     classSuffix: '' // Removes 'dark:' classes
   },
 
+  runtimeConfig: {
+    public: {
+      mapboxToken: process.env.NUXT_PUBLIC_MAPBOX_TOKEN || ''
+    }
+  },
+
   routeRules: {
     '/': { prerender: true }
   },

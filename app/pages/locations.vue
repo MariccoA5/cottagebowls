@@ -65,8 +65,10 @@
 import { onMounted } from 'vue'
 import mapboxgl from 'mapbox-gl'
 
-// MAPBOX PUBLIC TOKEN
-mapboxgl.accessToken = 'pk.eyJ1IjoiY290dGFnZWJvd2xzIiwiYSI6ImNtanJ2dzdwZTJ6N3Qza3B5eGZ1NDJjajQifQ.bRMqdcX4WnWqKxj5Urf44A'
+const config = useRuntimeConfig()
+
+// MAPBOX PUBLIC TOKEN from runtime config (NUXT_PUBLIC_MAPBOX_TOKEN)
+mapboxgl.accessToken = config.public.mapboxToken || ''
 
 const drops = [
   {

@@ -20,11 +20,13 @@ Start the Nuxt dev server on `http://localhost:3000`:
 npm run dev
 ```
 
-Environment variables for the Neon Postgres database and Stripe are read from `process.env` in the Nitro server handlers. To avoid runtime errors when hitting the `/api/*` endpoints, ensure these are set before running the dev server:
+Environment variables for the Neon Postgres database, Stripe, and Mapbox are read from `process.env` in the Nitro server handlers and runtime config. To avoid runtime errors when hitting the `/api/*` endpoints or rendering the map, ensure these are set before running the dev server:
 
 - `DATABASE_URL`
 - `STRIPE_SECRET_KEY`
 - `STRIPE_WEBHOOK_SECRET`
+- `ADMIN_DASHBOARD_KEY` (optional; shared secret for the `/admin` dashboard APIs)
+- `NUXT_PUBLIC_MAPBOX_TOKEN` (public Mapbox access token used by the Locations map)
 
 ### Production build and preview
 
@@ -100,7 +102,7 @@ Nuxt file-based routing is used under `app/pages/`:
   - Clicking a card focuses the map on that location and opens its popup.
   - "Reserve a Bowl" buttons link to `/order?locationId=...` so the order page is pre-filtered to the chosen pickup location.
   - Bottom CTA routes visitors to the Support page.
-  - Mapbox token is currently set directly on `mapboxgl.accessToken` in this file.
+  - Reads the Mapbox access token from `useRuntimeConfig().public.mapboxToken`, which should be populated from `NUXT_PUBLIC_MAPBOX_TOKEN`.
 - `order.vue` — Main ordering experience
   - Full bowl builder with pickup location selector, customer details, base bowl (size + cottage cheese brand), premade bowls, and a build-your-own toppings section.
   - Topping pricing handled in cents with standard vs premium nuts and fruits and sweetener rules (standard nuts $0.50, premium nuts $0.75, standard fruit $0.75, premium fruit $1.25, first sweetener free and extras $0.50); order summary card is sticky on desktop.
@@ -108,8 +110,6 @@ Nuxt file-based routing is used under `app/pages/`:
 - `order-confirmed.vue` — Order confirmation page
   - Reads `session_id` from the URL and calls `/api/order-by-session` to load the order by `stripe_session_id`.
   - Shows customer info, pickup location, bowl configuration, toppings, and total paid.
-- `test-order.vue` — Legacy test order form (can be removed once no longer needed)
-  - Older, simpler form that used to post to Supabase; current production ordering flow is handled by `order.vue` + Stripe Checkout.
 - `support.vue` — Support/donations page
   - Contact info and how users can support the business.
   - Donation form that collects name, email, phone, amount, and a note, then calls `/api/donate-checkout` to start a Stripe donation Checkout Session.
@@ -124,7 +124,7 @@ Located in `app/components/`:
 - `TheHeader.vue`
   - Uses `UHeader` from Nuxt UI.
   - Left slot: logo image (`/images/logosmall.png`) and brand name linking to `/`.
-  - Right slot (desktop): navigation links to `/`, `/about`, `/support` and a prominent `Order Now` button linking to `/locations`.
+  - Right slot (desktop): navigation links to `/`, `/about`, `/support` and a prominent `Order Now` button linking to `/order`.
   - Body slot (mobile): vertical navigation for main routes.
 - `TheFooter.vue`
   - Uses `UFooter` with a simple copyright line (current year) and social buttons.
@@ -158,9 +158,11 @@ Located in `app/components/`:
   - If `metadata.order_id` is present, marks the corresponding order as `paid` and stores `stripe_session_id` and `stripe_payment_intent_id`.
   - If `metadata.donation_id` is present, marks the corresponding donation as `paid` with the same Stripe identifiers.
 - `server/api/admin-orders.get.ts`
-  - Admin-only listing of paid orders, with `scope` query support for `today` vs `recent` and a capped `limit`.
+  - Admin-only listing of paid orders. Supports a `scope` query of `today`, `week` (last 7 days), or `month` (current calendar month) and a capped `limit` (default 100, max 500).
+  - Requires an `x-admin-key` header matching `ADMIN_DASHBOARD_KEY` when that env var is set; otherwise returns 401.
 - `server/api/admin-donations.get.ts`
-  - Admin-only listing of paid donations, similarly scoped and limited.
+  - Admin-only listing of paid donations. Supports a `scope` of `recent` (all), `today`, or `week` (last 7 days) with the same `limit` behavior.
+  - Also requires a matching `x-admin-key` header when `ADMIN_DASHBOARD_KEY` is configured.
 - The main `order.vue` page, `support.vue` donations form, `order-confirmed.vue`, and `donation-confirmed.vue` are the primary consumers of these APIs, and their payload shapes should stay in sync with the Neon `orders`, `donations`, and `waitlist` table schemas.
 
 ### Configuration and TypeScript

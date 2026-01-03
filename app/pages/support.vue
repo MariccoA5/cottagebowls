@@ -37,7 +37,7 @@
           <div class="flex items-start gap-3">
             <span class="font-semibold w-20">Phone</span>
             <a
-              href="tel:+14355550123"
+              href="tel:+13606060098"
               class="text-sky-700 hover:underline"
             >
               (360) 606-0098

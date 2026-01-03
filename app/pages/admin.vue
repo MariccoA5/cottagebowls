@@ -46,13 +46,13 @@
                 <button
                   v-for="scope in orderScopeOptions"
                   :key="scope"
-                  @click="ordersScope = scope"
                   :class="[
                     'px-3 py-1 text-xs rounded-md transition-colors',
                     ordersScope === scope
                       ? 'bg-amber-100 text-amber-800 font-medium'
                       : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
                   ]"
+                  @click="ordersScope = scope"
                 >
                   {{ scope.charAt(0).toUpperCase() + scope.slice(1) }}
                 </button>
