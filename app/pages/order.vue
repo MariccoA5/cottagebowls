@@ -263,9 +263,6 @@
                 <h3 class="font-semibold text-amber-700 mb-2">
                   Nuts &amp; Seeds
                 </h3>
-                <div class="mb-1 text-xs font-semibold text-amber-700">
-                  Standard (+$0.50)
-                </div>
                 <div
                   v-for="topping in baseNuts"
                   :key="topping.key"
