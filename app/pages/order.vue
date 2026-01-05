@@ -1,10 +1,13 @@
 <template>
-  <UContainer class="py-12 max-w-5xl mx-auto">
+  <UContainer class="pt-10 pb-28 md:pt-12 md:pb-16 max-w-5xl mx-auto">
     <h1 class="text-4xl font-bold text-amber-800 text-center mb-2">
       Build Your Cottage Bowl ☀️
     </h1>
-    <p class="text-lg text-center text-gray-700 mb-8">
+    <p class="text-lg text-center text-gray-700 mb-2">
       Choose your cottage cheese, size, and toppings. Snack 4 oz or Meal 6 oz.
+    </p>
+    <p class="text-md text-center text-gray-700 mb-8">
+      Pickup Saturdays at Dixie Springs Park in Hurricane (around 10am for 2 hours).
     </p>
 
     <!-- Pickup location selector -->
@@ -91,6 +94,18 @@
                       <input
                         v-model="form.size"
                         type="radio"
+                        value="kids"
+                        class="text-amber-600"
+                      >
+                      <span>Kids 1 oz</span>
+                      <span class="text-xs text-gray-500 ml-1">
+                        $1.10 base
+                      </span>
+                    </label>
+                    <label class="inline-flex items-center gap-2 text-sm">
+                      <input
+                        v-model="form.size"
+                        type="radio"
                         value="snack"
                         class="text-amber-600"
                       >
@@ -154,7 +169,7 @@
                         <span>Good Culture</span>
                       </label>
                       <p class="text-xs text-gray-500 mt-1 mx-5">
-                        $2 more for any bowl size.
+                        $1 more for any bowl size.
                       </p>
                     </div>
                   </div>
@@ -173,16 +188,23 @@
             </p>
             <div class="grid md:grid-cols-3 gap-4">
               <UCard
-                v-for="bowl in premadeBowls"
+                v-for="bowl in sortedPremadeBowls"
                 :key="bowl.key"
                 class="cursor-pointer transition hover:shadow-lg"
                 :class="form.presetKey === bowl.key ? 'ring-2 ring-amber-400' : ''"
                 @click="selectPreset(bowl)"
               >
                 <template #header>
-                  <p class="font-semibold text-amber-800">
-                    {{ bowl.name }}
-                  </p>
+                  <div class="flex items-start justify-between gap-2">
+                    <p class="font-semibold text-amber-800">
+                      {{ bowl.name }}
+                    </p>
+                    <span
+                      class="text-sm text-gray-400 font-semibold"
+                    >
+                      {{ formatPresetPriceLabel(bowl.estimatedPriceCents) }}
+                    </span>
+                  </div>
                 </template>
                 <ul class="text-sm text-gray-700 list-disc list-inside space-y-1">
                   <li
@@ -194,7 +216,7 @@
                 </ul>
                 <template #footer>
                   <p class="text-xs text-gray-500">
-                    Base + {{ bowl.toppings.length }} toppings
+                    From {{ formatPresetPriceLabel(bowl.estimatedPriceCents) }} · Base + {{ bowl.toppings.length }} toppings
                   </p>
                 </template>
               </UCard>
@@ -228,8 +250,8 @@
               Build Your Own Toppings
             </h2>
             <p class="text-sm text-gray-600 mb-4">
-              Set how many scoops of each topping you want. Standard nuts are +$0.50 per scoop, standard fruit is +$0.75 per scoop.
-              The first sweetener is free (extra sweeteners +$0.50 each).
+              Set how many scoops of each topping you want. Standard nuts are +$0.49 per scoop, standard fruit is +$0.75 per scoop.
+              Premium nuts are +$0.25 extra and premium fruits are +$0.49 extra. The first sweetener is free (extra sweeteners +$0.50 each).
             </p>
 
             <div class="grid md:grid-cols-3 gap-6">
@@ -248,13 +270,29 @@
                   <span class="text-sm">
                     {{ topping.label }}
                   </span>
-                  <UInput
-                    v-model.number="form.toppingCounts[topping.key]"
-                    type="number"
-                    :min="0"
-                    :max="MAX_TOPPING_COUNT"
-                    class="w-20 text-right"
-                  />
+                  <div class="flex items-center gap-2">
+                    <UButton
+                      size="xs"
+                      color="gray"
+                      variant="soft"
+                      :disabled="(form.toppingCounts[topping.key] || 0) <= 0"
+                      @click="changeToppingCount(topping.key, -1)"
+                    >
+                      -
+                    </UButton>
+                    <span class="w-6 text-center text-sm font-medium">
+                      {{ form.toppingCounts[topping.key] || 0 }}
+                    </span>
+                    <UButton
+                      size="xs"
+                      color="primary"
+                      variant="soft"
+                      :disabled="(form.toppingCounts[topping.key] || 0) >= MAX_TOPPING_COUNT"
+                      @click="changeToppingCount(topping.key, 1)"
+                    >
+                      +
+                    </UButton>
+                  </div>
                 </div>
               </div>
 
@@ -270,13 +308,29 @@
                   <span class="text-sm">
                     {{ topping.label }}
                   </span>
-                  <UInput
-                    v-model.number="form.toppingCounts[topping.key]"
-                    type="number"
-                    :min="0"
-                    :max="MAX_TOPPING_COUNT"
-                    class="w-20 text-right"
-                  />
+                  <div class="flex items-center gap-2">
+                    <UButton
+                      size="xs"
+                      color="gray"
+                      variant="soft"
+                      :disabled="(form.toppingCounts[topping.key] || 0) <= 0"
+                      @click="changeToppingCount(topping.key, -1)"
+                    >
+                      -
+                    </UButton>
+                    <span class="w-6 text-center text-sm font-medium">
+                      {{ form.toppingCounts[topping.key] || 0 }}
+                    </span>
+                    <UButton
+                      size="xs"
+                      color="primary"
+                      variant="soft"
+                      :disabled="(form.toppingCounts[topping.key] || 0) >= MAX_TOPPING_COUNT"
+                      @click="changeToppingCount(topping.key, 1)"
+                    >
+                      +
+                    </UButton>
+                  </div>
                 </div>
 
                 <div class="mt-3 mb-1 text-xs font-semibold text-amber-700">
@@ -290,13 +344,29 @@
                   <span class="text-sm">
                     {{ topping.label }}
                   </span>
-                  <UInput
-                    v-model.number="form.toppingCounts[topping.key]"
-                    type="number"
-                    :min="0"
-                    :max="MAX_TOPPING_COUNT"
-                    class="w-20 text-right"
-                  />
+                  <div class="flex items-center gap-2">
+                    <UButton
+                      size="xs"
+                      color="gray"
+                      variant="soft"
+                      :disabled="(form.toppingCounts[topping.key] || 0) <= 0"
+                      @click="changeToppingCount(topping.key, -1)"
+                    >
+                      -
+                    </UButton>
+                    <span class="w-6 text-center text-sm font-medium">
+                      {{ form.toppingCounts[topping.key] || 0 }}
+                    </span>
+                    <UButton
+                      size="xs"
+                      color="primary"
+                      variant="soft"
+                      :disabled="(form.toppingCounts[topping.key] || 0) >= MAX_TOPPING_COUNT"
+                      @click="changeToppingCount(topping.key, 1)"
+                    >
+                      +
+                    </UButton>
+                  </div>
                 </div>
               </div>
 
@@ -312,17 +382,33 @@
                   <span class="text-sm">
                     {{ topping.label }}
                   </span>
-                  <UInput
-                    v-model.number="form.toppingCounts[topping.key]"
-                    type="number"
-                    :min="0"
-                    :max="MAX_TOPPING_COUNT"
-                    class="w-20 text-right"
-                  />
+                  <div class="flex items-center gap-2">
+                    <UButton
+                      size="xs"
+                      color="gray"
+                      variant="soft"
+                      :disabled="(form.toppingCounts[topping.key] || 0) <= 0"
+                      @click="changeToppingCount(topping.key, -1)"
+                    >
+                      -
+                    </UButton>
+                    <span class="w-6 text-center text-sm font-medium">
+                      {{ form.toppingCounts[topping.key] || 0 }}
+                    </span>
+                    <UButton
+                      size="xs"
+                      color="primary"
+                      variant="soft"
+                      :disabled="(form.toppingCounts[topping.key] || 0) >= MAX_TOPPING_COUNT"
+                      @click="changeToppingCount(topping.key, 1)"
+                    >
+                      +
+                    </UButton>
+                  </div>
                 </div>
 
                 <div class="mt-3 mb-1 text-xs font-semibold text-amber-700">
-                  Premium (+$0.50)
+                  Premium (+$0.49)
                 </div>
                 <div
                   v-for="topping in premiumFruits"
@@ -332,13 +418,29 @@
                   <span class="text-sm">
                     {{ topping.label }}
                   </span>
-                  <UInput
-                    v-model.number="form.toppingCounts[topping.key]"
-                    type="number"
-                    :min="0"
-                    :max="MAX_TOPPING_COUNT"
-                    class="w-20 text-right"
-                  />
+                  <div class="flex items-center gap-2">
+                    <UButton
+                      size="xs"
+                      color="gray"
+                      variant="soft"
+                      :disabled="(form.toppingCounts[topping.key] || 0) <= 0"
+                      @click="changeToppingCount(topping.key, -1)"
+                    >
+                      -
+                    </UButton>
+                    <span class="w-6 text-center text-sm font-medium">
+                      {{ form.toppingCounts[topping.key] || 0 }}
+                    </span>
+                    <UButton
+                      size="xs"
+                      color="primary"
+                      variant="soft"
+                      :disabled="(form.toppingCounts[topping.key] || 0) >= MAX_TOPPING_COUNT"
+                      @click="changeToppingCount(topping.key, 1)"
+                    >
+                      +
+                    </UButton>
+                  </div>
                 </div>
               </div>
             </div>
@@ -469,16 +571,40 @@
         </UCard>
       </div>
     </div>
+
+    <!-- Mobile sticky checkout bar -->
+    <div class="fixed inset-x-0 bottom-0 md:hidden border-t bg-white/95 backdrop-blur-sm shadow-lg z-50">
+      <UContainer class="py-3 flex items-center justify-between gap-3 max-w-5xl mx-auto">
+        <div>
+          <p class="text-xs text-gray-500">
+            Total ({{ form.quantity }} bowl<span v-if="form.quantity > 1">s</span>)
+          </p>
+          <p class="text-lg font-semibold text-amber-800">
+            ${{ totalDollars }}
+          </p>
+        </div>
+        <UButton
+          size="lg"
+          color="primary"
+          :loading="loading"
+          @click="submit"
+        >
+          Place Order
+        </UButton>
+      </UContainer>
+    </div>
   </UContainer>
 </template>
 
 <script setup>
+const KIDS_STANDARD_PRICE_CENTS = 110
+const KIDS_PREMIUM_PRICE_CENTS = 210 // $1 more than standard for Good Culture
 const SNACK_STANDARD_PRICE_CENTS = 400
-const SNACK_PREMIUM_PRICE_CENTS = 600
+const SNACK_PREMIUM_PRICE_CENTS = 500 // $1 more than standard for Good Culture
 const MEAL_STANDARD_PRICE_CENTS = 600
-const MEAL_PREMIUM_PRICE_CENTS = 800
+const MEAL_PREMIUM_PRICE_CENTS = 700 // $1 more than standard for Good Culture
 
-const NUT_PRICE_CENTS = 50
+const NUT_PRICE_CENTS = 49
 const FRUIT_PRICE_CENTS = 75
 const SWEETENER_EXTRA_PRICE_CENTS = 50
 const MAX_TOPPING_COUNT = 5
@@ -487,22 +613,10 @@ const route = useRoute()
 
 const pickupLocations = [
   {
-    id: 'thunder-junction',
-    shortLabel: 'Thunder Junction',
-    label: 'Thunder Junction Park',
-    schedule: 'Thursday 4–6pm'
-  },
-  {
-    id: 'sand-hollow',
-    shortLabel: 'Sand Hollow',
-    label: 'Sand Hollow State Park',
-    schedule: 'Friday 11am–1pm · Sunday 11am–1pm'
-  },
-  {
-    id: 'vernon-worthen',
-    shortLabel: 'Vernon Worthen',
-    label: 'Vernon Worthen Park',
-    schedule: 'Saturday 10am–12pm'
+    id: 'dixie-springs-park',
+    shortLabel: 'Dixie Springs Park',
+    label: 'Dixie Springs Park, Hurricane, UT',
+    schedule: 'Saturday · around 10am for 2 hours'
   }
 ]
 
@@ -544,21 +658,79 @@ const toppingCategories = {
 
 const premadeBowls = [
   {
+    key: 'standard-agave',
+    name: 'Standard',
+    description: 'Uses your selected cottage cheese & size with agave.',
+    toppings: ['agave']
+  },
+  {
+    key: 'original',
+    name: 'Original Bowl',
+    description: 'Standard + agave plus chia and almond slices.',
+    toppings: ['agave', 'chia', 'almond-slices']
+  },
+  {
     key: 'classic',
     name: '#1 Strawberries & Blueberries Bowl',
+    description: 'Snack size · classic berry combo',
     toppings: ['strawberries', 'blueberries', 'agave', 'chia', 'almond-slices']
   },
   {
     key: 'seasonal',
     name: '#2 Seasonal Bowl',
+    description: 'Snack size · rotating seasonal fruit',
     toppings: ['mangos', 'pomegranate', 'agave', 'chia', 'almond-slices']
   },
   {
     key: 'banana-dates',
     name: '#3 Banana & Dates Bowl',
+    description: 'Snack size · banana, dates, and crunch',
     toppings: ['bananas', 'dates', 'agave', 'chia', 'almond-slices']
   }
 ]
+
+function estimatePresetPriceCents(bowl) {
+  const base = basePriceCents.value
+  let nutsCents = 0
+  let fruitCents = 0
+  let sweetenerCount = 0
+
+  bowl.toppings.forEach((key) => {
+    const t = allToppingsFlat.value.find(item => item.key === key)
+    if (!t) return
+    if (t.category === 'nuts') {
+      const isPremiumNut = t.key === 'pecans' || t.key === 'almond-slices'
+      const pricePerUnit = isPremiumNut ? NUT_PRICE_CENTS + 25 : NUT_PRICE_CENTS
+      nutsCents += pricePerUnit
+    } else if (t.category === 'fruit') {
+      const isPremiumFruit = t.key === 'dates' || t.key === 'mangos' || t.key === 'pomegranate'
+      const pricePerUnit = isPremiumFruit ? FRUIT_PRICE_CENTS + 49 : FRUIT_PRICE_CENTS
+      fruitCents += pricePerUnit
+    } else if (t.category === 'sweetener') {
+      sweetenerCount += 1
+    }
+  })
+
+  const sweetenerPaidCount = Math.max(0, sweetenerCount - 1)
+  const sweetenerCents = sweetenerPaidCount * SWEETENER_EXTRA_PRICE_CENTS
+
+  return base + nutsCents + fruitCents + sweetenerCents
+}
+
+function formatPresetPriceLabel(cents) {
+  const dollars = cents / 100
+  const rounded = Math.round(dollars)
+  return `$${rounded.toFixed(0)}`
+}
+
+const sortedPremadeBowls = computed(() => {
+  return premadeBowls
+    .map((bowl) => ({
+      ...bowl,
+      estimatedPriceCents: estimatePresetPriceCents(bowl)
+    }))
+    .sort((a, b) => a.estimatedPriceCents - b.estimatedPriceCents)
+})
 
 const form = ref({
   name: '',
@@ -618,6 +790,11 @@ const toppingsUnits = computed(() => {
 })
 
 const basePriceCents = computed(() => {
+  if (form.value.size === 'kids') {
+    return form.value.cottageType === 'premium'
+      ? KIDS_PREMIUM_PRICE_CENTS
+      : KIDS_STANDARD_PRICE_CENTS
+  }
   if (form.value.size === 'snack') {
     return form.value.cottageType === 'premium'
       ? SNACK_PREMIUM_PRICE_CENTS
@@ -637,14 +814,12 @@ const toppingsSubtotalCents = computed(() => {
 
   for (const t of selectedToppingsDetailed.value) {
     if (t.category === 'nuts') {
-      // Base nuts $0.50, premium nuts (pecans, almond slices) $0.75
       const isPremiumNut = t.key === 'pecans' || t.key === 'almond-slices'
-      const pricePerUnit = isPremiumNut ? 75 : NUT_PRICE_CENTS
+      const pricePerUnit = isPremiumNut ? NUT_PRICE_CENTS + 25 : NUT_PRICE_CENTS
       nutsCents += pricePerUnit * t.count
     } else if (t.category === 'fruit') {
-      // Base fruits $0.75, premium fruits (dates, mangos, pomegranate) $1.25
       const isPremiumFruit = t.key === 'dates' || t.key === 'mangos' || t.key === 'pomegranate'
-      const pricePerUnit = isPremiumFruit ? 125 : FRUIT_PRICE_CENTS
+      const pricePerUnit = isPremiumFruit ? FRUIT_PRICE_CENTS + 49 : FRUIT_PRICE_CENTS
       fruitCents += pricePerUnit * t.count
     } else if (t.category === 'sweetener') {
       sweetenerCount += t.count
@@ -671,14 +846,21 @@ const presetLabel = computed(() => {
 })
 
 const baseDescription = computed(() => {
-  const sizeLabel = form.value.size === 'snack' ? 'Snack 4 oz' : 'Meal 6 oz'
+  let sizeLabel
+  if (form.value.size === 'kids') {
+    sizeLabel = 'Kids 1 oz'
+  } else if (form.value.size === 'snack') {
+    sizeLabel = 'Snack 4 oz'
+  } else {
+    sizeLabel = 'Meal 6 oz'
+  }
   let brandLabel
   if (form.value.cottageType === 'premium') {
     brandLabel = 'Good Culture (Premium)'
   } else {
     brandLabel = form.value.standardBrand === 'lactaid' ? 'Lactaid' : 'Daisy'
   }
-  return `${sizeLabel} – ${brandLabel}`
+  return `${sizeLabel}  ${brandLabel}`
 })
 
 const cottageChoice = computed({
@@ -721,6 +903,12 @@ function clearPresetToCustom() {
     counts[t.key] = 0
   })
   form.value.toppingCounts = counts
+}
+
+function changeToppingCount(key, delta) {
+  const current = form.value.toppingCounts[key] || 0
+  const next = Math.min(MAX_TOPPING_COUNT, Math.max(0, current + delta))
+  form.value.toppingCounts[key] = next
 }
 
 async function submit() {

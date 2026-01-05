@@ -56,7 +56,7 @@ async function joinWaitlist() {
           Fuel Your Day with Raw Power: High-Protein Cottage Cheese Bowls
         </h1>
         <p class="text-xl md:text-2xl text-white max-w-3xl mx-auto mb-12 drop-shadow-md">
-          A sweet guilt-free alternative for health focused individuals.
+          High-protein cottage cheese bowls you pre-order online and pick up fresh at Dixie Springs Park in Hurricane.
         </p>
         <div class="flex flex-col sm:flex-row gap-6 justify-center">
           <UButton
@@ -77,10 +77,10 @@ async function joinWaitlist() {
       <section class="bg-red-50 border-y border-red-200">
         <div class="grand-opening-marquee py-3">
           <div class="grand-opening-marquee__inner text-red-800 text-xs sm:text-sm font-semibold uppercase tracking-wide">
-            <span>Grand Opening Phase · Limited Pickup Spots · Fresh Bowls Made Daily in St. George</span>
-            <span>Family-Owned · High-Protein Cottage Cheese Bowls · Made with Sunshine ☀️</span>
-            <span>Grand Opening Phase · Limited Pickup Spots · Fresh Bowls Made Daily in St. George</span>
-            <span>Join the First 100 Customers · Early Access to New Flavors &amp; Locations</span>
+            <span>New at Dixie Springs Park · Grand Opening Pre-Order Phase</span>
+            <span>Reserve Your Bowl Online · Pick Up Saturday Around 10am at Dixie Springs Park in Hurricane</span>
+            <span>Limited Bowls Each Week · Family-Owned Startup · High-Protein Cottage Cheese Bowls</span>
+            <span>Be an Early Supporter · Help Us Launch Cottage Bowls in Southern Utah ☀️</span>
           </div>
         </div>
       </section>

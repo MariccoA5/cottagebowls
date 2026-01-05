@@ -1,10 +1,10 @@
 <template>
   <UContainer class="py-12">
     <h1 class="text-4xl font-bold text-amber-800 text-center mb-8">
-      St. George Locations & Times ☀️
+      Dixie Springs Park Pickup ☀️
     </h1>
     <p class="text-xl text-center mb-12">
-      Meet me at these spots • Fresh bowls ready • Grab and go (pay online)
+      Pre-order your bowls online and pick them up at Dixie Springs Park in Hurricane.
     </p>
 
     <!-- Professional Dynamic Map -->
@@ -73,36 +73,13 @@ mapboxgl.accessToken = config.public.mapboxToken || ''
 const drops = [
   {
     id: 1,
-    location: 'Thunder Junction Park',
-    address: '1851 S Dixie Dr, St. George, UT 84770',
-    schedule: 'Thursday 4-6pm',
-    lngLat: [-113.60031, 37.077827], // Times: Thursday 4-6pm
+    location: 'Dixie Springs Park',
+    address: '3605 W 2900 S, Hurricane, UT 84737',
+    schedule: 'Saturday · around 10am for 2 hours',
+    lngLat: [-113.3716, 37.1292],
     // Used to pre-select location on /order page
-    orderLocationId: 'thunder-junction'
-  },
-  {
-    id: 2,
-    location: 'Sand Hollow State Park',
-    address: '3351 Sand Hollow Rd, Hurricane, UT 84737',
-    schedule: 'Friday, 11am-1pm | Sunday, 11am-1pm',
-    lngLat: [-113.390004, 37.117812], // Times: Friday, 11am-1pm | Sunday, 11am-1pm
-    orderLocationId: 'sand-hollow'
-  },
-  {
-    id: 3,
-    location: 'Vernon Worthen Park',
-    address: '300 S 400 E, St. George, UT 84770',
-    schedule: 'Saturday, 10am-12pm',
-    lngLat: [-113.5758844, 37.1040429], // Times: Saturday Market, 10am-12pm
-    orderLocationId: 'vernon-worthen'
+    orderLocationId: 'dixie-springs-park'
   }
-  // {
-  //   id: 4,
-  //   location: 'Utah Tech Holland Building',
-  //   address: 'Jeffrey R. Holland Centennial Commons, 225 S University Ave, 225 S 700 E, St. George, UT 84770',
-  //   schedule: 'Fill Out Application',
-  //   lngLat: [-113.568397, 37.104329] // Times:
-  // }
 ]
 
 // Add marker reference to each drop
@@ -114,8 +91,8 @@ onMounted(() => {
   map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/outdoors-v12', // Clean bright style
-    center: [-113.5684, 37.0965],
-    zoom: 10
+    center: [-113.3716, 37.1292],
+    zoom: 14
   })
 
   // Add navigation controls (zoom +/-)
