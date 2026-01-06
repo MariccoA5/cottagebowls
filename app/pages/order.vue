@@ -88,7 +88,10 @@
             </h2>
             <div class="grid md:grid-cols-2 gap-6">
               <div>
-                <UFormField label="Bowl Size">
+                <UFormField>
+                  <template #label>
+                    <span class="text-sm font-semibold text-amber-700">Bowl Size</span>
+                  </template>
                   <div class="flex flex-col space-y-2">
                     <label class="inline-flex items-center gap-2 text-sm">
                       <input
@@ -130,7 +133,10 @@
                 </UFormField>
               </div>
               <div>
-                <UFormField label="Cottage Cheese">
+                <UFormField>
+                  <template #label>
+                    <span class="text-sm font-semibold text-amber-700">Cottage Cheese</span>
+                  </template>
                   <div class="grid md:grid-cols-2 gap-4">
                     <div>
                       <p class="text-xs font-semibold text-amber-700 mb-1">
@@ -553,7 +559,7 @@
               </ul>
             </div>
 
-            <div class="border-t pt-3 mt-2 text-sm">
+            <div class="border-t pt-3 mt-2 text-sm space-y-2">
               <div class="flex justify-between mb-1">
                 <span>Base (x{{ form.quantity }})</span>
                 <span>${{ (basePriceCents * form.quantity / 100).toFixed(2) }}</span>
@@ -565,6 +571,20 @@
               <div class="flex justify-between font-semibold text-amber-800 mt-2">
                 <span>Total</span>
                 <span>${{ totalDollars }}</span>
+              </div>
+
+              <div class="mt-3 pt-3 border-t text-xs text-gray-600">
+                <p class="font-semibold text-amber-800 mb-1">
+                  Estimated macros (per bowl)
+                </p>
+                <div class="flex flex-wrap gap-x-4 gap-y-1">
+                  <span>Protein: ~{{ estimatedMacros.protein }}g</span>
+                  <span>Added sugar: ~{{ estimatedMacros.addedSugar }}g</span>
+                  <span>Calories: ~{{ estimatedMacros.calories }}</span>
+                </div>
+                <p class="mt-1 text-[11px] text-gray-500">
+                  Rough estimates based on your size, base, and toppings. For general guidance only.
+                </p>
               </div>
             </div>
           </div>
@@ -608,6 +628,34 @@ const NUT_PRICE_CENTS = 49
 const FRUIT_PRICE_CENTS = 75
 const SWEETENER_EXTRA_PRICE_CENTS = 50
 const MAX_TOPPING_COUNT = 5
+
+// Rough macro estimates used for the nutrition snapshot (per bowl)
+const BASE_MACROS = {
+  kids: {
+    // 1 oz
+    standard: { protein: 3.25, addedSugar: 0, calories: 23 },
+    premium: { protein: 3.5, addedSugar: 0, calories: 25 }
+  },
+  snack: {
+    // 4 oz
+    standard: { protein: 13, addedSugar: 0, calories: 92 },
+    premium: { protein: 14, addedSugar: 0, calories: 100 }
+  },
+  meal: {
+    // 6 oz
+    standard: { protein: 19.5, addedSugar: 0, calories: 138 },
+    premium: { protein: 21, addedSugar: 0, calories: 150 }
+  }
+}
+
+const TOPPING_MACROS = {
+  // approximate per 1 tbsp scoop
+  nutsBase: { protein: 2, addedSugar: 0, calories: 30 },
+  nutsPremium: { protein: 2.5, addedSugar: 0, calories: 35 },
+  fruitBase: { protein: 0, addedSugar: 0, calories: 15 },
+  fruitPremium: { protein: 0, addedSugar: 0, calories: 20 },
+  sweetener: { protein: 0, addedSugar: 0, calories: 20 }
+}
 
 const route = useRoute()
 
@@ -725,7 +773,7 @@ function formatPresetPriceLabel(cents) {
 
 const sortedPremadeBowls = computed(() => {
   return premadeBowls
-    .map((bowl) => ({
+    .map(bowl => ({
       ...bowl,
       estimatedPriceCents: estimatePresetPriceCents(bowl)
     }))
@@ -787,6 +835,43 @@ const selectedToppingsDetailed = computed(() => {
 
 const toppingsUnits = computed(() => {
   return selectedToppingsDetailed.value.reduce((sum, t) => sum + t.count, 0)
+})
+
+const estimatedMacros = computed(() => {
+  const sizeKey = form.value.size === 'kids' ? 'kids' : form.value.size === 'snack' ? 'snack' : 'meal'
+  const cottageKey = form.value.cottageType === 'premium' ? 'premium' : 'standard'
+  const base = BASE_MACROS[sizeKey][cottageKey]
+
+  let protein = base.protein
+  let addedSugar = base.addedSugar
+  let calories = base.calories
+
+  for (const t of selectedToppingsDetailed.value) {
+    if (t.category === 'nuts') {
+      const isPremiumNut = t.key === 'pecans' || t.key === 'almond-slices'
+      const m = isPremiumNut ? TOPPING_MACROS.nutsPremium : TOPPING_MACROS.nutsBase
+      protein += m.protein * t.count
+      addedSugar += m.addedSugar * t.count
+      calories += m.calories * t.count
+    } else if (t.category === 'fruit') {
+      const isPremiumFruit = t.key === 'dates' || t.key === 'mangos' || t.key === 'pomegranate'
+      const m = isPremiumFruit ? TOPPING_MACROS.fruitPremium : TOPPING_MACROS.fruitBase
+      protein += m.protein * t.count
+      addedSugar += m.addedSugar * t.count
+      calories += m.calories * t.count
+    } else if (t.category === 'sweetener') {
+      const m = TOPPING_MACROS.sweetener
+      protein += m.protein * t.count
+      addedSugar += m.addedSugar * t.count
+      calories += m.calories * t.count
+    }
+  }
+
+  return {
+    protein: Math.round(protein),
+    addedSugar: Math.round(addedSugar),
+    calories: Math.round(calories)
+  }
 })
 
 const basePriceCents = computed(() => {

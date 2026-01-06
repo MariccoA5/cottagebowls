@@ -35,6 +35,15 @@
       v-else-if="order"
       class="space-y-6"
     >
+      <div class="text-center mb-1">
+        <p class="text-sm text-gray-600">
+          You built:
+        </p>
+        <p class="text-xl font-semibold text-amber-800">
+          The {{ flairName }} Bowl
+        </p>
+      </div>
+
       <UCard>
         <h2 class="text-xl font-semibold text-amber-800 mb-3">
           Pickup Details
@@ -168,6 +177,45 @@ const normalizedToppings = computed(() => {
       count: t.count
     }))
     .filter(t => t.count > 0)
+})
+
+const flairName = computed(() => {
+  const toppings = normalizedToppings.value
+  if (!toppings.length) {
+    return 'Simple Start'
+  }
+
+  let fruitScoops = 0
+  let nutScoops = 0
+  let sweetenerScoops = 0
+
+  for (const t of toppings) {
+    if (t.category === 'fruit') {
+      fruitScoops += t.count
+    } else if (t.category === 'nuts') {
+      nutScoops += t.count
+    } else if (t.category === 'sweetener') {
+      sweetenerScoops += t.count
+    }
+  }
+
+  if (fruitScoops >= 4 && sweetenerScoops >= 1) {
+    return 'Fruit Fiend'
+  }
+
+  if (nutScoops >= 3 && sweetenerScoops === 0) {
+    return 'Protein Purist'
+  }
+
+  if (sweetenerScoops >= 2 && fruitScoops <= 2) {
+    return 'Sweet Tooth Saver'
+  }
+
+  if (fruitScoops >= 2 && nutScoops >= 2) {
+    return 'Balanced Crunch'
+  }
+
+  return 'Cottage Classic'
 })
 
 onMounted(async () => {
