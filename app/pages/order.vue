@@ -737,6 +737,14 @@ const premadeBowls = [
   }
 ]
 
+const initialPresetKeyFromQuery = (() => {
+  const raw = route.query.preset || route.query.presetKey
+  const asString = Array.isArray(raw) ? raw[0] : raw
+  if (!asString) return null
+  const match = premadeBowls.find(b => String(b.key) === String(asString))
+  return match ? match.key : null
+})()
+
 function estimatePresetPriceCents(bowl) {
   const base = basePriceCents.value
   let nutsCents = 0
@@ -788,7 +796,7 @@ const form = ref({
   size: 'snack',
   cottageType: 'standard',
   standardBrand: 'daisy',
-  presetKey: null,
+  presetKey: initialPresetKeyFromQuery,
   toppingCounts: {}
 })
 
@@ -822,6 +830,14 @@ onMounted(() => {
       form.value.toppingCounts[t.key] = 0
     }
   })
+
+  // If a preset was passed in the query string, prefill toppings
+  if (initialPresetKeyFromQuery) {
+    const match = premadeBowls.find(b => b.key === initialPresetKeyFromQuery)
+    if (match) {
+      selectPreset(match)
+    }
+  }
 })
 
 const selectedToppingsDetailed = computed(() => {

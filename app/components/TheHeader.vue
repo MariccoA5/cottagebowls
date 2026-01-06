@@ -34,6 +34,12 @@
           Locations
         </NuxtLink>
         <NuxtLink
+          to="/menu"
+          class="text-gray-700 hover:text-amber-700 font-medium"
+        >
+          Menu
+        </NuxtLink>
+        <NuxtLink
           to="/about"
           class="text-gray-700 hover:text-amber-700 font-medium"
         >
@@ -69,6 +75,12 @@
           class="text-gray-700 hover:text-amber-700 font-medium"
         >
           Locations
+        </NuxtLink>
+        <NuxtLink
+          to="/menu"
+          class="text-gray-700 hover:text-amber-700 font-medium"
+        >
+          Menu
         </NuxtLink>
         <NuxtLink
           to="/about"
