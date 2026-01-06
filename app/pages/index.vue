@@ -40,14 +40,14 @@ async function joinWaitlist() {
 
 <template>
   <div>
-    <!-- Hero Section with Background Image -->
+    <!-- Hero section -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div
         class="absolute inset-0 bg-cover bg-center bg-no-repeat"
         :style="{ backgroundImage: 'url(/images/hero-bowl3.png)' }"
       />
 
-      <!-- Dark overlay for text readability -->
+      <!-- Dark overlay for readability -->
       <div class="absolute inset-0 bg-black/40" />
 
       <!-- Content -->
@@ -71,7 +71,7 @@ async function joinWaitlist() {
       </UContainer>
     </section>
 
-    <!-- All sections below hero share one vertical gradient background -->
+    <!-- Main content below hero -->
     <section class="bg-linear-to-b from-white to-amber-50">
       <!-- Grand Opening Banner -->
       <section class="bg-red-50 border-y border-red-200">
@@ -85,54 +85,7 @@ async function joinWaitlist() {
         </div>
       </section>
 
-      <!--
-      Who Cottage Bowls Is For (currently hidden)
-      Consider reusing this section on the /order page, just above the order form,
-      to help visitors see themselves in the product right before they check out.
-
-      <section class="py-16 bg-white">
-        <UContainer class="space-y-10">
-          <div class="text-center max-w-2xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-amber-800 mb-4">
-              Who Cottage Bowls Is For
-            </h2>
-            <p class="text-gray-700">
-              If you love feeling good after you eat—and not like you need a nap—
-              Cottage Bowls was built for you.
-            </p>
-          </div>
-          <div class="grid gap-8 md:grid-cols-3">
-            <UCard class="bg-amber-50/70 border-amber-100">
-              <h3 class="text-xl font-semibold text-amber-800 mb-2">
-                Busy Parents &amp; Professionals
-              </h3>
-              <p class="text-sm text-gray-700">
-                Grab-and-go fuel between school runs, meetings, and practices—without
-                relying on drive-thru snacks.
-              </p>
-            </UCard>
-            <UCard class="bg-amber-50/70 border-amber-100">
-              <h3 class="text-xl font-semibold text-amber-800 mb-2">
-                Gym-Goers &amp; Movers
-              </h3>
-              <p class="text-sm text-gray-700">
-                A high-protein bowl that works pre- or post-workout and actually fits
-                your goals.
-              </p>
-            </UCard>
-            <UCard class="bg-amber-50/70 border-amber-100">
-              <h3 class="text-xl font-semibold text-amber-800 mb-2">
-                Healthy Snack Lovers
-              </h3>
-              <p class="text-sm text-gray-700">
-                When you want something sweet and satisfying that still feels
-                aligned with healthy habits.
-              </p>
-            </UCard>
-          </div>
-        </UContainer>
-      </section>
-      -->
+      <!-- Optional "Who this is for" section kept for later reuse. -->
 
       <!-- Why Cottage Bowls vs Other Snacks -->
       <section class="py-20 bg-white">

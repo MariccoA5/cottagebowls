@@ -16,9 +16,9 @@ export default defineNuxtConfig({
   ],
 
   colorMode: {
-    preference: 'light', // Always light
-    fallback: 'light', // Fallback light
-    classSuffix: '' // Removes 'dark:' classes
+    preference: 'light',
+    fallback: 'light',
+    classSuffix: ''
   },
 
   runtimeConfig: {

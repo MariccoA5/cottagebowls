@@ -7,13 +7,13 @@
       Pre-order your bowls online and pick them up at Dixie Springs Park in Hurricane.
     </p>
 
-    <!-- Professional Dynamic Map -->
+    <!-- Map -->
     <div
       id="map"
       class="h-96 w-full rounded-2xl overflow-hidden shadow-2xl mb-16"
     />
 
-    <!-- List/Grid with Click-to-Focus -->
+    <!-- Location cards -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       <UCard
         v-for="drop in drops"
@@ -42,7 +42,7 @@
       </UCard>
     </div>
 
-    <!-- Global Preorder Section -->
+    <!-- Support CTA -->
     <div class="mt-20 py-12 bg-amber-50 rounded-3xl text-center">
       <h2 class="text-3xl font-bold text-amber-800 mb-6">
         Want to support? Join the Journey ☀️

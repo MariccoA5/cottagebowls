@@ -1,65 +1,111 @@
-HEAD
-# Nuxt Starter Template
+# Cottage Bowls
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+A Nuxt 4 app for building and pre-ordering high‑protein cottage cheese bowls for pickup at Dixie Springs Park in Hurricane, Utah.
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+This repo contains:
+- A marketing/landing page with nutrition comparisons and a waitlist form
+- A full ordering flow with bowl builder, pricing, and Stripe Checkout
+- Donation flow for early supporters
+- A simple admin dashboard for viewing recent paid orders and donations
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+## Tech stack
 
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-  </picture>
-</a>
+- **Nuxt 4** (app directory)
+- **Nuxt UI** for components
+- **Neon Postgres** via `@neondatabase/serverless`
+- **Stripe Checkout** for payments & donations
+- **Mapbox GL JS** for the locations map
 
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
+## Getting started
 
-## Quick Start
-
-```bash [Terminal]
-npm create nuxt@latest -- -t github:nuxt-ui-templates/starter
-```
-
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
-
-## Setup
-
-Make sure to install the dependencies:
+Clone the repo, then install dependencies:
 
 ```bash
+npm install
+# or
 pnpm install
 ```
 
-## Development Server
+### Environment variables
 
-Start the development server on `http://localhost:3000`:
+Create a `.env` file (or configure these in your hosting environment):
 
 ```bash
+DATABASE_URL=postgres://...
+STRIPE_SECRET_KEY=sk_live_or_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+ADMIN_DASHBOARD_KEY=some-shared-secret # optional but recommended
+NUXT_PUBLIC_MAPBOX_TOKEN=pk.YourPublicMapboxToken
+```
+
+> Note: never commit your real `.env` file. This repo ignores `.env*` by default.
+
+### Development
+
+Run the dev server on `http://localhost:3000`:
+
+```bash
+npm run dev
+# or
 pnpm dev
 ```
 
-## Production
-
-Build the application for production:
+### Linting and typecheck
 
 ```bash
-pnpm build
+npm run lint
+npm run typecheck
+# or
+pnpm run lint
+pnpm run typecheck
 ```
 
-Locally preview production build:
+### Production build
 
 ```bash
+npm run build
+npm run preview
+# or
+pnpm build
 pnpm preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Main features
 
-# cottagebowls
-Cottage Bowls app
-25ed7deeafbffeb6d6f7454e45ba473c9d8e8e1a
+- **Landing page** (`/`)
+  - Hero describing Cottage Bowls and Dixie Springs pickup
+  - "Why Cottage Bowls?" nutrition and price comparison vs froyo/acai
+  - Email waitlist form posting to `/api/waitlist`
+
+- **Locations** (`/locations`)
+  - Mapbox map centered on Dixie Springs Park
+  - Card list of pickup location(s) linking into `/order?locationId=...`
+
+- **Ordering** (`/order`)
+  - Pickup location selector
+  - Customer info and bowl size/base selection
+  - Premade bowls and build‑your‑own toppings
+  - Live pricing and a nutrition snapshot (estimated protein, added sugar, calories)
+  - Sends orders to `/api/checkout` which creates a row in `orders` and starts a Stripe Checkout Session
+
+- **Order confirmation** (`/order-confirmed`)
+  - Loads the order via `/api/order-by-session?session_id=...`
+  - Shows pickup details, bowl summary, fun "flair" name based on toppings, and total paid
+
+- **Support / donations** (`/support` and `/donation-confirmed`)
+  - Donation form posting to `/api/donate-checkout`
+  - Confirmation page reading from `/api/donation-by-session`
+
+- **Admin dashboard** (`/admin`)
+  - Uses `x-admin-key` header that must match `ADMIN_DASHBOARD_KEY`
+  - Lists recent paid orders and donations via `/api/admin-orders` and `/api/admin-donations`
+
+## Security & privacy
+
+- No secrets are committed to the repo; all keys/URLs are read from `process.env`.
+- `.env`, `.env.*`, and `.env*.local` are git‑ignored.
+- Admin endpoints are protected by a shared key header; keep `ADMIN_DASHBOARD_KEY` private.
+
+## License
+
+See `LICENSE` for details.

@@ -9,7 +9,6 @@ if (!databaseUrl) {
   })
 }
 
-// Create a single Neon client for this Lambda/worker runtime
 const sql = neon(databaseUrl)
 
 export default defineEventHandler(async (event) => {

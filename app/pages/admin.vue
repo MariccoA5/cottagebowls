@@ -29,7 +29,6 @@
     </div>
 
     <div class="grid gap-8 lg:grid-cols-4 items-start">
-      <!-- Orders -->
       <UCard class="lg:col-span-3">
         <template #header>
           <div class="flex items-center justify-between gap-2">
@@ -142,7 +141,6 @@
         </div>
       </UCard>
 
-      <!-- Donations -->
       <UCard class="lg:col-span-1">
         <template #header>
           <div class="flex items-center justify-between gap-2">

@@ -1,4 +1,3 @@
-<!-- app.vue -->
 <script setup lang="ts">
 useHead({
   meta: [
@@ -26,9 +25,8 @@ useSeoMeta({
   <UApp>
     <TheHeader />
 
-    <!-- Main content area — required for routing -->
     <UMain>
-      <!-- This renders the current page (home, drops, order, etc.) -->
+      <!-- Current page content -->
       <NuxtPage />
     </UMain>
 

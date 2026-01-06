@@ -1,4 +1,3 @@
-<!-- components/TheFooter.vue -->
 <template>
   <UFooter class="border-t border-gray-200 py-12 bg-linear-to-t from-amber-50 to-transparent">
     <template #left>
